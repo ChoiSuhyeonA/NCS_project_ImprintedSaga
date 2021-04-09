@@ -75,7 +75,7 @@
 
     <GridView
         android:id="@+id/shop_GridView"
-        android:layout_width="419dp"
+        android:layout_width="0dp"
         android:layout_height="381dp"
         android:layout_gravity="center"
         android:background="#526C80"

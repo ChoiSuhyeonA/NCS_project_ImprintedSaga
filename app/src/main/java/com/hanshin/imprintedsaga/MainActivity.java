@@ -1,5 +1,6 @@
 package com.hanshin.imprintedsaga;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -18,6 +19,12 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -60,6 +67,28 @@ public class MainActivity extends AppCompatActivity {
         shop_pointTv = findViewById(R.id.shop_pointTv);
         shop_GridView = findViewById(R.id.shop_GridView);
 
+        //파이어베이스 데이터 정보가져오기
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        // 파이어베이스 경로 ( mypage컬렉션 -> item문서의 경로 설정)
+        db.collection("mypage").document("item").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                DocumentSnapshot document = task.getResult();
+                //객체(MYPage_Item)에 뿌려주기 (파이어베이스 문서 -> 객체 Item에 주입)
+                MyPage_Item item = (MyPage_Item) document.toObject(MyPage_Item.class);
+                //파이어베이스에서 데이터 가져와서, 각 위젯에 데이터 설정해주기.
+                //클래스 객체 필드와 파이어베이스 필드명 같아야함 (틀리면 값을 못가져온다)
+               shop_pointTv.setText(item.getPoint());
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(getApplicationContext(),"데이터를 가져오지 못했습니다", Toast.LENGTH_LONG).show();
+            }
+        });
+
+
+
         //shop페이지 그리드뷰 및 어댑터 설정
         adapter = new ShopViewAdapter(this);
         shop_GridView.setAdapter(adapter);
@@ -85,7 +114,6 @@ public class MainActivity extends AppCompatActivity {
                 img.setImageResource(shopListImage[position]);
                 tv.setText(shopPriceListID[position].toString());
                 dlg.setTitle(shopListTitle[position]);
-
 
                 dlg.setIcon(R.drawable.ic_baseline_shopping_basket_24);
                 dlg.setView(dialogView);

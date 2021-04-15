@@ -9,15 +9,34 @@ import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.google.protobuf.StringValue;
+
 public class MyPageActivity extends AppCompatActivity {
     ImageView mypage_charIv;
     ImageButton mypage_closeBtn;
-    TextView mypage_charnameTv, mypage_levelTv, mypage_pointTv, mypage_stageTv;
+    TextView mypage_levelTv;
+    TextView mypage_pointTv;
+    TextView mypage_stageTv;
+    TextView mypage_hpTv;
+    TextView mypage_atkTv;
+    TextView mypage_dfdTv;
+    TextView mypage_skillTv ;
     GridView mypage_gridview;
     ImageButton medal1, medal2, medal3, medal4, medal5;
     ProgressBar mypage_achievementPb, mypage_answerratePb;
@@ -49,19 +68,50 @@ public class MyPageActivity extends AppCompatActivity {
         //위젯 연결
         mypage_charIv = findViewById(R.id.mypage_charIv);  // 캐릭터 이미지
         mypage_closeBtn = findViewById(R.id.mypage_closeBtn); // 창닫기 버튼
+        //데이터 위젯
         mypage_levelTv = findViewById(R.id.mypage_levelTv); // 레벨
         mypage_pointTv = findViewById(R.id.mypage_pointTv); // 포인트
         mypage_stageTv = findViewById(R.id.mypage_stageTv); // 스테이지
-        mypage_gridview = findViewById(R.id.mypage_gridview);
-        medal1 = findViewById(R.id.medal1); medal2 = findViewById(R.id.medal2);
+        mypage_hpTv = findViewById(R.id.mypage_hpTv); //HP
+        mypage_atkTv = findViewById(R.id.mypage_atkTv); //공격력
+        mypage_dfdTv = findViewById(R.id.mypage_dfdTv); //방어력
+        mypage_skillTv = findViewById(R.id.mypage_skillTv); //능력
+
+        mypage_gridview = findViewById(R.id.mypage_gridview); //그리드뷰
+        medal1 = findViewById(R.id.medal1); medal2 = findViewById(R.id.medal2); //메달
         medal3 = findViewById(R.id.medal3); medal4 = findViewById(R.id.medal4);
         medal5 = findViewById(R.id.medal5);
-        mypage_achievementPb = findViewById(R.id.mypage_achievementPb);
-        mypage_answerratePb = findViewById(R.id.mypage_answerratePb);
+        mypage_achievementPb = findViewById(R.id.mypage_achievementPb); //달성도
+        mypage_answerratePb = findViewById(R.id.mypage_answerratePb);//정답률
 
         //개인페이지 그리드뷰 및 어댑터 설정
         Adapter adapter = new MypageViewAdapter(this);
         mypage_gridview.setAdapter(( MypageViewAdapter) adapter);
+
+        //파이어베이스 데이터 정보가져오기
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+         db.collection("mypage").document("item").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+             @Override
+             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                 DocumentSnapshot document = task.getResult();
+                 //객체(MYPage_Item)에 뿌려주기
+                 MyPage_Item item = (MyPage_Item) document.toObject(MyPage_Item.class);
+                 //파이어베이스에서 데이터 가져와서, 각 위젯에 데이터 설정해주기.
+                //클래스 객체 필드와 파이어베이스 필드명 같아야함 (틀리면 값을 못가져온다)
+                 mypage_levelTv.setText(item.getLevel());
+                 mypage_pointTv.setText(item.getPoint());
+                 mypage_stageTv.setText(item.getStage());
+                 mypage_hpTv.setText(item.getHp());
+                 mypage_atkTv.setText(item.getAtk());
+                 mypage_dfdTv.setText(item.getDfd());
+                 mypage_skillTv.setText(item.getSkill());
+             }
+         }).addOnFailureListener(new OnFailureListener() {
+             @Override
+             public void onFailure(@NonNull Exception e) {
+                 Toast.makeText(getApplicationContext(),"데이터를 가져오지 못했습니다", Toast.LENGTH_LONG).show();
+             }
+         });
 
 
 //        //메달숨기기

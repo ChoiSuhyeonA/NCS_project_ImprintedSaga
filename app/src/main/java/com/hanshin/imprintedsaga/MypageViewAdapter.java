@@ -13,7 +13,8 @@ public class MypageViewAdapter extends BaseAdapter {
 
     //개인페이지에 내가 갖고 있는 아이템 이미지 리스트
     Integer[] mypageListImage = {
-            R.drawable.question, R.drawable.question, R.drawable.question, R.drawable.question,
+            R.drawable.question, R.drawable.question, R.drawable.question, R.drawable.question,R.drawable.question,
+            R.drawable.question, R.drawable.question, R.drawable.question, R.drawable.question
     };
 
 
@@ -67,11 +68,12 @@ public class MypageViewAdapter extends BaseAdapter {
             convertView = inflater.inflate(R.layout.mypage_list_image, parent, false);
         }
         ImageView image = convertView.findViewById(R.id.mypage_ListImage);
+        TextView text = convertView.findViewById(R.id.mypage_ListTV);
 
 
         image.setImageResource(mypageListImage[position]);
         image.setScaleType(ImageView.ScaleType.FIT_XY);
-        image.setPadding(10,0,10,0);
+        image.setPadding(20,20,20,20);
 
         return  convertView;
     }

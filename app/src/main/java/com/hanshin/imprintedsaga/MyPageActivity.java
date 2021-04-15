@@ -49,7 +49,6 @@ public class MyPageActivity extends AppCompatActivity {
         //위젯 연결
         mypage_charIv = findViewById(R.id.mypage_charIv);  // 캐릭터 이미지
         mypage_closeBtn = findViewById(R.id.mypage_closeBtn); // 창닫기 버튼
-        mypage_charnameTv = findViewById(R.id.mypage_charnameTv); // 캐릭터 이름
         mypage_levelTv = findViewById(R.id.mypage_levelTv); // 레벨
         mypage_pointTv = findViewById(R.id.mypage_pointTv); // 포인트
         mypage_stageTv = findViewById(R.id.mypage_stageTv); // 스테이지

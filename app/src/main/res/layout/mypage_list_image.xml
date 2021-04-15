@@ -9,15 +9,27 @@
 
     <LinearLayout
 
-        android:layout_width="120dp"
-        android:layout_height="160dp"
+        android:layout_width="110dp"
+        android:layout_height="140dp"
         android:orientation="vertical">
 
         <ImageView
             android:id="@+id/mypage_ListImage"
-            android:layout_width="match_parent"
-            android:layout_height="140dp"
+            android:layout_width="110dp"
+            android:layout_height="120dp"
+            android:scaleType="fitXY"
             android:src="@drawable/question" />
+        <TextView
+            android:id="@+id/mypage_ListTV"
+            android:layout_width="110dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center"
+            android:background="#7BDFEC"
+            android:fontFamily="@font/maplestorybold"
+            android:text="장 착"
+            android:textAlignment="center"
+            android:textColor="#ffffff"
+            android:textSize="18dp" />
     </LinearLayout>
 
 </LinearLayout>

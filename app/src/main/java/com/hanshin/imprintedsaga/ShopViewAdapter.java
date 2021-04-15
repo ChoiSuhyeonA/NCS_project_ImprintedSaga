@@ -73,7 +73,7 @@ public class ShopViewAdapter extends BaseAdapter {
 
         image.setImageResource(shopListImage[position]);
         image.setScaleType(ImageView.ScaleType.FIT_XY);
-        image.setPadding(10,0,10,0);
+        image.setPadding(20,20,20,20);
         textView.setText(shopPriceListID[position].toString());
 
         return  convertView;

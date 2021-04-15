@@ -9,8 +9,8 @@
 
     <ImageView
         android:id="@+id/mypage_charIv"
-        android:layout_width="142dp"
-        android:layout_height="217dp"
+        android:layout_width="140dp"
+        android:layout_height="200dp"
         android:contentDescription="TODO"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -18,7 +18,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/char3_wp_3" />
+        app:srcCompat="@drawable/people" />
 
     <ImageButton
         android:id="@+id/mypage_closeBtn"
@@ -188,40 +188,40 @@
 
 
     <GridView
-        android:layout_width="413dp"
-        android:layout_height="261dp"
+        android:id="@+id/mypage_gridview"
+        android:layout_width="411dp"
+        android:layout_height="277dp"
         android:layout_gravity="center"
         android:background="#E3D7D7"
         android:numColumns="3"
-        android:id="@+id/mypage_gridview"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.489" />
+        app:layout_constraintVertical_bias="0.503" />
 
     <HorizontalScrollView
         android:layout_width="424dp"
-        android:layout_height="122dp"
+        android:layout_height="80dp"
         android:scrollbars="none"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.806">
+        app:layout_constraintVertical_bias="0.809">
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="80dp"
             android:background="#F4E5E5"
             android:orientation="horizontal">
 
             <ImageButton
                 android:id="@+id/medal1"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
                 android:layout_gravity="center"
                 android:layout_margin="10dp"
                 android:background="@drawable/buttonshapecircle"
@@ -231,8 +231,8 @@
 
             <ImageButton
                 android:id="@+id/medal2"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
                 android:layout_gravity="center"
                 android:layout_margin="10dp"
                 android:background="@drawable/buttonshapecircle"
@@ -242,8 +242,8 @@
 
             <ImageButton
                 android:id="@+id/medal3"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
                 android:layout_gravity="center"
                 android:layout_margin="10dp"
                 android:background="@drawable/buttonshapecircle"
@@ -253,8 +253,8 @@
 
             <ImageButton
                 android:id="@+id/medal4"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
                 android:layout_gravity="center"
                 android:layout_margin="10dp"
                 android:background="@drawable/buttonshapecircle"
@@ -264,8 +264,8 @@
 
             <ImageButton
                 android:id="@+id/medal5"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
                 android:layout_gravity="center"
                 android:layout_margin="10dp"
                 android:background="@drawable/buttonshapecircle"
@@ -274,12 +274,9 @@
                 android:visibility="visible" />
 
 
-
-
         </LinearLayout>
 
     </HorizontalScrollView>
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

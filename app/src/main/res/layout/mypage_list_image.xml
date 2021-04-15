@@ -17,7 +17,7 @@
             android:id="@+id/mypage_ListImage"
             android:layout_width="match_parent"
             android:layout_height="140dp"
-            android:src="@drawable/char1a" />
+            android:src="@drawable/question" />
     </LinearLayout>
 
 </LinearLayout>

@@ -20,10 +20,15 @@ public class ShopViewAdapter extends BaseAdapter {
 
     //그리드뷰 이미지 저장위치
     Integer[] shopListImage ={
-            R.drawable.char1a, R.drawable.char2a, R.drawable.char3a,
-            R.drawable.pet1a, R.drawable.pet2a, R.drawable.pet3a,
-            R.drawable.wp1, R.drawable.wp2, R.drawable.wp3
+            R.drawable.question, R.drawable.question, R.drawable.question, R.drawable.question, R.drawable.question,
+            R.drawable.question, R.drawable.question, R.drawable.question, R.drawable.question
     };
+//    //그리드뷰 이미지 저장위치
+//    Integer[] shopListImage ={
+//            R.drawable.char1, R.drawable.char2, R.drawable.char3,
+//            R.drawable.pet1a, R.drawable.pet2a, R.drawable.pet3a,
+//            R.drawable.wp1, R.drawable.wp2, R.drawable.wp3
+//    };
     //그리드뷰 이미지 가격
     Integer[] shopPriceListID ={
             1000, 3000, 5000,

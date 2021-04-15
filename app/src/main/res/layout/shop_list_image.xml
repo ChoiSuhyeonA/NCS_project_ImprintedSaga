@@ -17,7 +17,7 @@
             android:id="@+id/shopListImage"
             android:layout_width="match_parent"
             android:layout_height="140dp"
-            android:src="@drawable/char1a" />
+            android:src="@drawable/question" />
 
         <TextView
             android:id="@+id/shopListTV"

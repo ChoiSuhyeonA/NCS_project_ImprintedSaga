@@ -11,7 +11,7 @@
         android:layout_height="300dp"
         android:layout_marginLeft="30dp"
         android:scaleType="fitXY"
-        android:src="@drawable/char1" />
+        android:src="@drawable/question" />
 
     <TextView
         android:layout_width="300dp"

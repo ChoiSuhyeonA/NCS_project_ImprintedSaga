@@ -13,18 +13,16 @@ public class MypageViewAdapter extends BaseAdapter {
 
     //개인페이지에 내가 갖고 있는 아이템 이미지 리스트
     Integer[] mypageListImage = {
-            R.drawable.char3a,
-            R.drawable.pet2a, R.drawable.pet3a,
-            R.drawable.wp1, R.drawable.wp3
+            R.drawable.question, R.drawable.question, R.drawable.question, R.drawable.question,
     };
 
 
-    //그리드뷰 이미지 저장위치
-    Integer[] shopListImage ={
-            R.drawable.char1a, R.drawable.char2a, R.drawable.char3a,
-            R.drawable.pet1a, R.drawable.pet2a, R.drawable.pet3a,
-            R.drawable.wp1, R.drawable.wp2, R.drawable.wp3
-    };
+//    //그리드뷰 이미지 저장위치
+//    Integer[] shopListImage ={
+//            R.drawable.char1, R.drawable.char2, R.drawable.char3,
+//            R.drawable.pet1, R.drawable.pet2, R.drawable.pet3,
+//            R.drawable.wp1, R.drawable.wp2, R.drawable.wp3
+//    };
 
     //그리드뷰 이미지 타이틀
     String[] shpoListTitle=  {

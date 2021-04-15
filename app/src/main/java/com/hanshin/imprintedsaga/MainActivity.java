@@ -35,10 +35,15 @@ public class MainActivity extends AppCompatActivity {
     };
     //그리드뷰 이미지 저장위치
     Integer[] shopListImage ={
-            R.drawable.char1a, R.drawable.char2a, R.drawable.char3a,
-            R.drawable.pet1a, R.drawable.pet2a, R.drawable.pet3a,
-            R.drawable.wp1, R.drawable.wp2, R.drawable.wp3
+            R.drawable.question, R.drawable.question, R.drawable.question, R.drawable.question, R.drawable.question,
+            R.drawable.question, R.drawable.question, R.drawable.question, R.drawable.question
     };
+//    //그리드뷰 이미지 저장위치
+//    Integer[] shopListImage ={
+//            R.drawable.char1a, R.drawable.char2a, R.drawable.char3a,
+//            R.drawable.pet1a, R.drawable.pet2a, R.drawable.pet3a,
+//            R.drawable.wp1, R.drawable.wp2, R.drawable.wp3
+//    };
     //그리드뷰 이미지 가격
     Integer[] shopPriceListID ={
             1000, 3000, 5000,
@@ -52,7 +57,6 @@ public class MainActivity extends AppCompatActivity {
 
         shop_closeBtn = findViewById(R.id.shop_closeBtn);
         shop_charIv = findViewById(R.id.shop_charIv);
-        shop_petIv = findViewById(R.id.shop_petIv);
         shop_pointTv = findViewById(R.id.shop_pointTv);
         shop_GridView = findViewById(R.id.shop_GridView);
 

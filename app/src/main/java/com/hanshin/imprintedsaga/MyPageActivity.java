@@ -28,12 +28,12 @@ public class MyPageActivity extends AppCompatActivity {
             "pet1", "pet2", "pet3",
             "weapon1", "weapon2", "weapon3"
     };
-    //그리드뷰 이미지 저장위치
-    Integer[] shopListImage ={
-            R.drawable.char1a, R.drawable.char2a, R.drawable.char3a,
-            R.drawable.pet1a, R.drawable.pet2a, R.drawable.pet3a,
-            R.drawable.wp1, R.drawable.wp2, R.drawable.wp3
-    };
+//    //그리드뷰 이미지 저장위치
+//    Integer[] shopListImage ={
+//            R.drawable.char1, R.drawable.char2, R.drawable.char3,
+//            R.drawable.pet1, R.drawable.pet2, R.drawable.pet3,
+//            R.drawable.wp1, R.drawable.wp2, R.drawable.wp3
+//    };
     //그리드뷰 이미지 가격
     Integer[] shopPriceListID ={
             1000, 3000, 5000,

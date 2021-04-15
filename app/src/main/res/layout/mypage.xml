@@ -13,8 +13,6 @@
         android:layout_height="200dp"
         android:contentDescription="TODO"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
@@ -43,22 +41,25 @@
         android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.738"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.346"
+
+        app:layout_constraintStart_toEndOf="@+id/mypage_charIv"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.022" />
 
     <TextView
+        android:id="@+id/textView2"
         android:layout_width="30dp"
         android:layout_height="30dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginLeft="48dp"
         android:layout_marginTop="64dp"
         android:fontFamily="@font/maplestorybold"
+
         android:rotationX="-4"
         android:text="LV "
         android:textSize="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.467"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/mypage_charIv"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -66,25 +67,30 @@
         android:layout_width="86dp"
         android:layout_height="30dp"
         android:layout_marginTop="64dp"
+        android:layout_marginEnd="84dp"
+        android:layout_marginRight="84dp"
         android:fontFamily="@font/maplestorybold"
         android:rotationX="-4"
         android:text="3 "
+
         android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.64"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/textView2"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:layout_width="60dp"
         android:layout_height="30dp"
+        android:layout_marginStart="38dp"
+        android:layout_marginLeft="38dp"
         android:fontFamily="@font/maplestorybold"
         android:text="Point"
         android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.507"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/mypage_pointTv"
+        app:layout_constraintHorizontal_bias="0.983"
+        app:layout_constraintStart_toEndOf="@+id/mypage_charIv"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.171" />
 
@@ -110,11 +116,13 @@
         android:text="Stage"
         android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.521"
-        app:layout_constraintStart_toStartOf="parent"
+
+        app:layout_constraintEnd_toStartOf="@+id/mypage_stageTv"
+        app:layout_constraintHorizontal_bias="0.926"
+
+        app:layout_constraintStart_toEndOf="@+id/mypage_charIv"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.243" />
+        app:layout_constraintVertical_bias="0.242" />
 
     <TextView
         android:id="@+id/mypage_stageTv"
@@ -138,8 +146,9 @@
         android:text="달성도"
         android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.167"
+
+        app:layout_constraintEnd_toStartOf="@+id/mypage_achievementPb"
+        app:layout_constraintHorizontal_bias="0.594"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.894" />
@@ -152,8 +161,9 @@
         android:text="정답률"
         android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.167"
+
+        app:layout_constraintEnd_toStartOf="@+id/mypage_answerratePb"
+        app:layout_constraintHorizontal_bias="0.594"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.958" />
@@ -189,17 +199,16 @@
 
     <GridView
         android:id="@+id/mypage_gridview"
-        android:layout_width="411dp"
-        android:layout_height="277dp"
+        android:layout_width="360dp"
+        android:layout_height="259dp"
         android:layout_gravity="center"
         android:background="#E3D7D7"
         android:numColumns="3"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.49"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.503" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <HorizontalScrollView
         android:layout_width="424dp"

@@ -90,7 +90,7 @@ public class MyPageActivity extends AppCompatActivity {
 
         //파이어베이스 데이터 정보가져오기
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-         db.collection("mypage").document("item").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+         db.collection("mypage").document("item"). get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
              @Override
              public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                  DocumentSnapshot document = task.getResult();
@@ -105,11 +105,6 @@ public class MyPageActivity extends AppCompatActivity {
                  mypage_atkTv.setText(item.getAtk());
                  mypage_dfdTv.setText(item.getDfd());
                  mypage_skillTv.setText(item.getSkill());
-             }
-         }).addOnFailureListener(new OnFailureListener() {
-             @Override
-             public void onFailure(@NonNull Exception e) {
-                 Toast.makeText(getApplicationContext(),"데이터를 가져오지 못했습니다", Toast.LENGTH_LONG).show();
              }
          });
 

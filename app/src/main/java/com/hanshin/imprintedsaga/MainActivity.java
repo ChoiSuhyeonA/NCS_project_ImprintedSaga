@@ -67,6 +67,8 @@ public class MainActivity extends AppCompatActivity {
         shop_pointTv = findViewById(R.id.shop_pointTv);
         shop_GridView = findViewById(R.id.shop_GridView);
 
+
+
         //파이어베이스 데이터 정보가져오기
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         // 파이어베이스 경로 ( mypage컬렉션 -> item문서의 경로 설정)
@@ -86,7 +88,6 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),"데이터를 가져오지 못했습니다", Toast.LENGTH_LONG).show();
             }
         });
-
 
 
         //shop페이지 그리드뷰 및 어댑터 설정

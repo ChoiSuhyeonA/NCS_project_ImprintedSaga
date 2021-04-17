@@ -1,4 +1,4 @@
-package com.hanshin.imprintedsaga;
+package com.hanshin.ncs_imprintsaga;
 
 import android.content.Context;
 import android.view.LayoutInflater;

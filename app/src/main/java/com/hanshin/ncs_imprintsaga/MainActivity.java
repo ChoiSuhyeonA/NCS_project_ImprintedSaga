@@ -1,15 +1,14 @@
-package com.hanshin.imprintedsaga;
+package com.hanshin.ncs_imprintsaga;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-public class MainActivity extends Activity {
+public class MainActivity extends AppCompatActivity {
     Button main_MY, main_SHOP, main_SETTING, main_TRAINING;
     Button stageBtn[] = new Button[9];
 
@@ -27,15 +26,15 @@ public class MainActivity extends Activity {
         main_MY.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent =  new Intent(getApplicationContext(), MyPageActivity.class);
-                startActivity(intent);
+                Intent intent = new Intent(MainActivity.this.getApplicationContext(), MyPageActivity.class);
+                MainActivity.this.startActivity(intent);
             }
         });
         main_SHOP.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            Intent intent =  new Intent(getApplicationContext(), ShopActivity.class);
-            startActivity(intent);
+                Intent intent = new Intent(MainActivity.this.getApplicationContext(), ShopActivity.class);
+                MainActivity.this.startActivity(intent);
             }
         });
         main_SETTING.setOnClickListener(new View.OnClickListener() {

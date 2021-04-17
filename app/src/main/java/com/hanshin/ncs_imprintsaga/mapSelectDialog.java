@@ -1,7 +1,8 @@
-package com.hanshin.imprintedsaga;
+package com.hanshin.ncs_imprintsaga;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.media.Rating;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;

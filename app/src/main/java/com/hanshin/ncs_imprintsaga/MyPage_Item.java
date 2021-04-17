@@ -1,4 +1,4 @@
-package com.hanshin.imprintedsaga;
+package com.hanshin.ncs_imprintsaga;
 
 public class MyPage_Item {
     String level;

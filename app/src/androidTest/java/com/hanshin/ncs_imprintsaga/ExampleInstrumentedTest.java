@@ -1,4 +1,4 @@
-package com.hanshin.imprintedsaga;
+package com.hanshin.ncs_imprintsaga;
 
 import android.content.Context;
 
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
     public void useAppContext() {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        assertEquals("com.hanshin.imprintedsaga", appContext.getPackageName());
+        assertEquals("com.hanshin.ncs_imprintsaga", appContext.getPackageName());
     }
 }

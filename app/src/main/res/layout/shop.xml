@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#E9EDC3"
 
-    tools:context=".ShopActivity">
+    tools:context=".MainActivity">
 
 
     <ImageView

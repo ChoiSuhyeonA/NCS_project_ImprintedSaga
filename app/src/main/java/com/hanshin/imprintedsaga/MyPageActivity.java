@@ -1,5 +1,6 @@
 package com.hanshin.imprintedsaga;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Adapter;
@@ -27,7 +28,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.protobuf.StringValue;
 
-public class MyPageActivity extends AppCompatActivity {
+public class MyPageActivity extends Activity {
     ImageView mypage_charIv;
     ImageButton mypage_closeBtn;
     TextView mypage_levelTv;

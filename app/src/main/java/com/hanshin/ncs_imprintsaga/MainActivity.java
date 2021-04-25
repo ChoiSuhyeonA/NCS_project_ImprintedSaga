@@ -6,10 +6,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ScrollView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     Button main_MY, main_SHOP, main_SETTING, main_TRAINING;
+    ScrollView scrollview;
     Button stageBtn[] = new Button[9];
 
 
@@ -22,6 +24,9 @@ public class MainActivity extends AppCompatActivity {
         main_SHOP = findViewById(R.id.main_shop_btn);
         main_SETTING = findViewById(R.id.main_setting_btn);
         main_TRAINING = findViewById(R.id.main_training_btn);
+        scrollview = findViewById(R.id.scrollview);
+        scrollview.fullScroll(ScrollView.FOCUS_UP);
+
 
         main_MY.setOnClickListener(new View.OnClickListener() {
             @Override

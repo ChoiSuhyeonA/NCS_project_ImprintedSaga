@@ -6,6 +6,7 @@ import android.util.Log;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.opencsv.CSVReader;
 
@@ -18,7 +19,7 @@ import com.opencsv.CSVWriter;
 
 import org.xmlpull.v1.XmlPullParserFactory;
 
-public class BattleActivity extends Activity {
+public class BattleActivity extends AppCompatActivity {
 
     CsvData[] dataArray = new CsvData[10];
     TextView textView;

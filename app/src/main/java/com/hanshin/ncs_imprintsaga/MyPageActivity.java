@@ -7,6 +7,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,6 +17,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.ArrayList;
 
 public class MyPageActivity extends AppCompatActivity {
     ImageView mypage_charIv;
@@ -31,24 +34,15 @@ public class MyPageActivity extends AppCompatActivity {
     ImageButton medal1, medal2, medal3, medal4, medal5;
     ProgressBar mypage_achievementPb, mypage_answerratePb;
 
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+
+
     //그리드뷰 이미지 타이틀
-    String[] shopListTitle=  {
-            "character1", "character2", "character3",
-            "pet1", "pet2", "pet3",
-            "weapon1", "weapon2", "weapon3"
-    };
-//    //그리드뷰 이미지 저장위치
-//    Integer[] shopListImage ={
-//            R.drawable.char1, R.drawable.char2, R.drawable.char3,
-//            R.drawable.pet1, R.drawable.pet2, R.drawable.pet3,
-//            R.drawable.wp1, R.drawable.wp2, R.drawable.wp3
-//    };
-    //그리드뷰 이미지 가격
-    Integer[] shopPriceListID ={
-            1000, 3000, 5000,
-            500, 1000, 2000,
-            800, 1500, 3000
-    };
+    ArrayList<String> mypageListTitle;
+    //개인페이지에 내가 갖고 있는 아이템 이미지 리스트
+    ArrayList<String>mypageListImage;
+    ArrayList<String> mypageListPrice ;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -79,7 +73,6 @@ public class MyPageActivity extends AppCompatActivity {
         mypage_gridview.setAdapter(( MypageViewAdapter) adapter);
 
         //파이어베이스 데이터 정보가져오기
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
          db.collection("mypage").document("item"). get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
              @Override
              public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -98,6 +91,20 @@ public class MyPageActivity extends AppCompatActivity {
              }
          });
 
+        //현재 갖고 있는 아이템 리스트 정보 가져오기.
+        db.collection("mypage").document("MyItemList"). get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                DocumentSnapshot document = task.getResult();
+                Mypage_HavingItem havingItem = document.toObject(Mypage_HavingItem.class);
+
+                mypageListTitle = havingItem.getMypageListTitle();
+                mypageListImage = havingItem.getMypageListImage();
+                mypageListPrice = havingItem.getMypageListPrice();
+
+
+            }
+        });
 
 //        //메달숨기기
 //        medal1.setVisibility(View.GONE);

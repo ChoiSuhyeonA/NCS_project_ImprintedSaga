@@ -239,8 +239,8 @@
 
         <GridView
             android:id="@+id/mypage_gridview"
-            android:layout_width="353dp"
-            android:layout_height="191dp"
+            android:layout_width="372dp"
+            android:layout_height="147dp"
             android:layout_gravity="center"
             android:background="#E3D7D7"
             android:numColumns="3"
@@ -248,7 +248,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.031" />
+            app:layout_constraintVertical_bias="0.066" />
 
         <HorizontalScrollView
             android:id="@+id/horizontalScrollView"

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Message;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
@@ -21,7 +22,9 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ShopActivity extends Activity {
@@ -63,6 +66,8 @@ public class ShopActivity extends Activity {
 
     //파이어베이스 데이터 정보가져오기
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+    //현재 갖고있는 아이템을 보여줌
+    ArrayList<String>  haveItem= new ArrayList<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,7 +109,7 @@ public class ShopActivity extends Activity {
         shop_closeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            Intent intent = new Intent(getApplicationContext(), com.hanshin.ncs_imprintsaga.MyPageActivity.class);
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(intent);
             }
         });
@@ -134,7 +139,36 @@ public class ShopActivity extends Activity {
                         db.collection("mypage").document("item").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                             @Override
                             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                DocumentSnapshot document = task.getResult();
+                                final DocumentSnapshot document = task.getResult();
+
+                                //현재 갖고 있는 아이템 데이터베이스에 등록
+                                db.collection("mypage").document("MyItemList").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                        final DocumentSnapshot document = task.getResult();
+
+                                        Mypage_HavingItem have = document.toObject(Mypage_HavingItem.class);
+
+                                        int i=0;
+                                        while(i<9){
+                                            if(position == Integer.parseInt( have.getItem()[i] )){
+                                                Toast.makeText(getApplicationContext(),shopListTitle[position]+"가 이미 있으므로 구매할 수 없습니다.",Toast.LENGTH_SHORT).show();
+                                                continue;
+                                            }
+                                            haveItem.add(String.valueOf(position+1));
+                                            Map<String , Object> data= new HashMap<>();
+
+                                            data.put("have", haveItem);
+                                            db.collection("mypage").document("MyitemList").update(data).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<Void> task) {
+                                                }
+                                            });
+                                            i--;
+                                        }
+                                    }
+                                });
+
                                 com.hanshin.ncs_imprintsaga.MyPage_Item item = (com.hanshin.ncs_imprintsaga.MyPage_Item) document.toObject(com.hanshin.ncs_imprintsaga.MyPage_Item.class);
                                 //포인트 남은 금액 = sum
                                 int sum= Integer.parseInt(item.getPoint())-shopListPrice[position];
@@ -149,6 +183,7 @@ public class ShopActivity extends Activity {
                                 });
                                 shop_pointTv.setText(String.valueOf(sum));
 
+                                
                             }
                         });
                         Toast.makeText(getApplicationContext(),shopListTitle[position]+"를 구매했습니다.",Toast.LENGTH_SHORT).show();

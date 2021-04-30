@@ -4,32 +4,13 @@ import java.util.ArrayList;
 
 public class Mypage_HavingItem {
 
-    //그리드뷰 이미지 타이틀
-    ArrayList<String> mypageListTitle;
-    ArrayList<String> mypageListImage;
-    ArrayList<String> mypageListPrice;
+    String item[] = new String[9];
 
-    public ArrayList<String> getMypageListTitle() {
-        return mypageListTitle;
+    public String[] getItem() {
+        return item;
     }
 
-    public void setMypageListTitle(ArrayList<String> mypageListTitle) {
-        this.mypageListTitle = mypageListTitle;
-    }
-
-    public ArrayList<String> getMypageListImage() {
-        return mypageListImage;
-    }
-
-    public void setMypageListImage(ArrayList<String> mypageListImage) {
-        this.mypageListImage = mypageListImage;
-    }
-
-    public ArrayList<String> getMypageListPrice() {
-        return mypageListPrice;
-    }
-
-    public void setMypageListPrice(ArrayList<String> mypageListPrice) {
-        this.mypageListPrice = mypageListPrice;
+    public void setItem(String[] item) {
+        this.item = item;
     }
 }

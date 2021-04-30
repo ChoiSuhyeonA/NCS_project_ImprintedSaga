@@ -1,6 +1,8 @@
 package com.hanshin.ncs_imprintsaga;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Adapter;
 import android.widget.GridView;
 import android.widget.ImageButton;
@@ -19,6 +21,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MyPageActivity extends AppCompatActivity {
     ImageView mypage_charIv;
@@ -35,14 +38,8 @@ public class MyPageActivity extends AppCompatActivity {
     ProgressBar mypage_achievementPb, mypage_answerratePb;
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-
-
-    //그리드뷰 이미지 타이틀
-    ArrayList<String> mypageListTitle;
-    //개인페이지에 내가 갖고 있는 아이템 이미지 리스트
-    ArrayList<String>mypageListImage;
-    ArrayList<String> mypageListPrice ;
+    //현재 갖고있는 아이템을 보여줌
+    ArrayList<String>  haveItem= new ArrayList<String>();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -98,9 +95,8 @@ public class MyPageActivity extends AppCompatActivity {
                 DocumentSnapshot document = task.getResult();
                 Mypage_HavingItem havingItem = document.toObject(Mypage_HavingItem.class);
 
-                mypageListTitle = havingItem.getMypageListTitle();
-                mypageListImage = havingItem.getMypageListImage();
-                mypageListPrice = havingItem.getMypageListPrice();
+
+
 
 
             }
@@ -113,5 +109,14 @@ public class MyPageActivity extends AppCompatActivity {
         mypage_achievementPb.setProgress(40);
         // 정답률 프로그레스바 설정
         mypage_answerratePb.setProgress(80);
+
+        //창닫기 버튼 클릭시 메인페이지로 이동하가ㅣㅣ
+       mypage_closeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent =  new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }

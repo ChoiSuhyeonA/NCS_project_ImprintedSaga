@@ -1,17 +1,21 @@
-package com.hanshin.ncs_imprintsaga;
+package com.hanshin.ncs_imprintsaga.ui.main;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.firebase.auth.FirebaseAuth;
+import com.hanshin.ncs_imprintsaga.MainActivity;
+import com.hanshin.ncs_imprintsaga.R;
 
-public class ResultActivity extends Activity {
+public class ResultActivity extends AppCompatActivity {
+
     TextView name, mail;
     Button logout;
     @Override

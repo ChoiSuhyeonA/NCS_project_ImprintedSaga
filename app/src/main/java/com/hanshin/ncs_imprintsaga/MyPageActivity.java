@@ -15,6 +15,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -41,6 +43,9 @@ public class MyPageActivity extends AppCompatActivity {
     //현재 갖고있는 아이템을 보여줌
     ArrayList<String>  haveItem= new ArrayList<String>();
 
+    //구글로그인 회원정보
+    String loginName ="";
+    String loginEmail = "";
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,7 +58,6 @@ public class MyPageActivity extends AppCompatActivity {
         mypage_levelTv = findViewById(R.id.mypage_levelTv); // 레벨
         mypage_pointTv = findViewById(R.id.mypage_pointTv); // 포인트
         mypage_stageTv = findViewById(R.id.mypage_stageTv); // 스테이지
-        mypage_hpTv = findViewById(R.id.mypage_hpTv); //HP
         mypage_atkTv = findViewById(R.id.mypage_atkTv); //공격력
         mypage_dfdTv = findViewById(R.id.mypage_dfdTv); //방어력
         mypage_skillTv = findViewById(R.id.mypage_skillTv); //능력
@@ -64,6 +68,17 @@ public class MyPageActivity extends AppCompatActivity {
         medal5 = findViewById(R.id.medal5);
         mypage_achievementPb = findViewById(R.id.mypage_achievementPb); //달성도
         mypage_answerratePb = findViewById(R.id.mypage_answerratePb);//정답률
+
+        //로그인한 회원정보를 가져오는 변수
+        GoogleSignInAccount signInAccount = GoogleSignIn.getLastSignedInAccount(this);
+        if(signInAccount != null){
+            //회원정보 이름
+            loginName = signInAccount.getDisplayName();
+            //회원정보 이메일
+            loginEmail = signInAccount.getEmail();
+            Toast.makeText(MyPageActivity.this, loginName+" "+loginEmail, Toast.LENGTH_SHORT).show();
+        }
+
 
         //개인페이지 그리드뷰 및 어댑터 설정
         Adapter adapter = new MypageViewAdapter(this);
@@ -81,28 +96,27 @@ public class MyPageActivity extends AppCompatActivity {
                  mypage_levelTv.setText(item.getLevel());
                  mypage_pointTv.setText(item.getPoint());
                  mypage_stageTv.setText(item.getStage());
-                 mypage_hpTv.setText(item.getHp());
                  mypage_atkTv.setText(item.getAtk());
                  mypage_dfdTv.setText(item.getDfd());
                  mypage_skillTv.setText(item.getSkill());
              }
          });
 
-        //현재 갖고 있는 아이템 리스트 정보 가져오기.
-        db.collection("mypage").document("MyItemList"). get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                DocumentSnapshot document = task.getResult();
-                Mypage_HavingItem havingItem = document.toObject(Mypage_HavingItem.class);
+//        //현재 갖고 있는 아이템 리스트 정보 가져오기.
+//        db.collection("mypage").document("MyItemList"). get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+//            @Override
+//            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+//                DocumentSnapshot document = task.getResult();
+//                Mypage_HavingItem havingItem = document.toObject(Mypage_HavingItem.class);
+//
+//
+//
+//
+//
+//            }
+//        });
 
-
-
-
-
-            }
-        });
-
-//        //메달숨기기
+       //메달숨기기
 //        medal1.setVisibility(View.GONE);
 
         // 달성도 프로그레스바 설정
@@ -110,11 +124,11 @@ public class MyPageActivity extends AppCompatActivity {
         // 정답률 프로그레스바 설정
         mypage_answerratePb.setProgress(80);
 
-        //창닫기 버튼 클릭시 메인페이지로 이동하가ㅣㅣ
+        //창닫기 버튼 클릭시 메인페이지로 이동하기
        mypage_closeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent =  new Intent(getApplicationContext(), MainActivity.class);
+                Intent intent =  new Intent(getApplicationContext(),StageActivity.class);
                 startActivity(intent);
             }
         });

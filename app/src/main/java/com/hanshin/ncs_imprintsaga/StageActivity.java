@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ScrollView;
 import android.widget.Toast;
@@ -25,7 +26,9 @@ public class StageActivity extends AppCompatActivity {
         main_SETTING = findViewById(R.id.main_setting_btn);
         main_TRAINING = findViewById(R.id.main_training_btn);
         scrollview = findViewById(R.id.scrollview);
-        scrollview.fullScroll(ScrollView.FOCUS_UP);
+        
+
+
 
 
         main_MY.setOnClickListener(new View.OnClickListener() {
@@ -45,7 +48,8 @@ public class StageActivity extends AppCompatActivity {
         main_SETTING.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(getApplicationContext(), SettingActivity.class);
+                startActivity(intent);
             }
         });
         main_TRAINING.setOnClickListener(new View.OnClickListener() {

@@ -132,8 +132,8 @@ public class ShopActivity extends Activity {
         //그리드뷰에 각각 리스트를 클릭할 때 이벤트 작성. (대화상자 띄우고 구매할지 물어보기 설정하기)
         shop_GridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView parent, View view, final int position, long id) {
-            View dialogView = View.inflate(com.hanshin.ncs_imprintsaga.ShopActivity.this, R.layout.shop_list_dialog, null);
+                public void onItemClick(AdapterView parent, View view, final int position, long id) {
+                    View dialogView = View.inflate(com.hanshin.ncs_imprintsaga.ShopActivity.this, R.layout.shop_list_dialog, null);
                 AlertDialog.Builder dlg = new AlertDialog.Builder(com.hanshin.ncs_imprintsaga.ShopActivity.this);
                 AlertDialog dialog = dlg.create();
 

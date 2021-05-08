@@ -3,6 +3,9 @@ package com.hanshin.ncs_imprintsaga;
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -21,8 +24,11 @@ import org.xmlpull.v1.XmlPullParserFactory;
 
 public class BattleActivity extends AppCompatActivity {
 
-    CsvData[] dataArray = new CsvData[10];
-    TextView textView;
+    CsvData[] dataArray = new CsvData[30];
+    TextView questionTV,timerTV,answerTV,hintTV;
+    ProgressBar userPB,enemyPB,timerPB;
+    Button next;
+    int count;
 
     public void readDataFromCsv(InputStream input) throws IOException {
 
@@ -43,7 +49,7 @@ public class BattleActivity extends AppCompatActivity {
             dataArray[j].meaning = nextLine[2];
             dataArray[j].grade = nextLine[3];
             j++;
-            if (j == 10)
+            if (j == 30)
                 break;
         }
     }
@@ -53,20 +59,35 @@ public class BattleActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.battle);
 
-        InputStream input = getResources().openRawResource(R.raw.words);
+        questionTV = findViewById(R.id.questionTV);
+        timerTV = findViewById(R.id.timerTV);
+        answerTV = findViewById(R.id.answerTV);
+        hintTV = findViewById(R.id.hintTV);
+        userPB =findViewById(R.id.userPB);
+        enemyPB =findViewById(R.id.enemyPB);
+        timerPB =findViewById(R.id.timerPB);
 
+        next = findViewById(R.id.testbtn);
+
+        count = 0;
+
+        InputStream input = getResources().openRawResource(R.raw.words);
         try {
             readDataFromCsv(input);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        textView = findViewById(R.id.textTest);
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < dataArray.length; i++ )
-            sb.append(dataArray[i].words + "\n");
+        next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                count++;
+                questionTV.setText(dataArray[count].meaning);
+                answerTV.setText(dataArray[count].words);
+            }
+        });
 
-        textView.setText(sb.toString());
+        //while (count < dataArray.length) { }
     }
 
     public class CsvData{
@@ -75,5 +96,4 @@ public class BattleActivity extends AppCompatActivity {
         String meaning;
         String grade;
     }
-
 }

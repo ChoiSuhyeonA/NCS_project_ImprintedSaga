@@ -62,15 +62,15 @@ public class StageActivity extends AppCompatActivity {
         for(int i =0;i<9;i++){
             int k = getResources().getIdentifier("main_stage1_"+(i+1), "id", getPackageName());
             stageBtn[i] = findViewById( k );
+            stageBtn[i].setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mapSelectDialog mapSelectDialog = new mapSelectDialog(StageActivity.this);
+                    mapSelectDialog.callFunction();
+                }
+            });
         }
 
-        stageBtn[0].setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mapSelectDialog mapSelectDialog = new mapSelectDialog(StageActivity.this);
-                mapSelectDialog.callFunction();
-            }
-        });
 
     }
 }

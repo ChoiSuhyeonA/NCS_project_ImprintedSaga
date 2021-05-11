@@ -6,7 +6,7 @@ public class MyPage_Item {
     String  stage;
     String atk;
     String dfd;
-    String skill;  // (타이머, 재탄생)
+    String skill;  // (타이머, 실드)
 
 
     public String getLevel() {

@@ -99,12 +99,12 @@ public class ShopActivity extends Activity {
 
 
         // 파이어베이스 경로 ( mypage컬렉션 -> item문서의 경로 설정)
-        db.collection("mypage").document("item").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+        db.collection(loginEmail).document("item").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 DocumentSnapshot document = task.getResult();
                 //객체(MYPage_Item)에 뿌려주기 (파이어베이스 문서 -> 객체 Item에 주입)
-                com.hanshin.ncs_imprintsaga.MyPage_Item item = (com.hanshin.ncs_imprintsaga.MyPage_Item) document.toObject(com.hanshin.ncs_imprintsaga.MyPage_Item.class);
+                MyPage_Item item = document.toObject(MyPage_Item.class);
                 //파이어베이스에서 데이터 가져와서, 각 위젯에 데이터 설정해주기.
                 //클래스 객체 필드와 파이어베이스 필드명 같아야함 (틀리면 값을 못가져온다)
                shop_pointTv.setText(item.getPoint());
@@ -133,7 +133,7 @@ public class ShopActivity extends Activity {
         shop_GridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
                 public void onItemClick(AdapterView parent, View view, final int position, long id) {
-                    View dialogView = View.inflate(com.hanshin.ncs_imprintsaga.ShopActivity.this, R.layout.shop_list_dialog, null);
+                    View dialogView = View.inflate(ShopActivity.this, R.layout.shop_list_dialog, null);
                 AlertDialog.Builder dlg = new AlertDialog.Builder(com.hanshin.ncs_imprintsaga.ShopActivity.this);
                 AlertDialog dialog = dlg.create();
 
@@ -152,14 +152,14 @@ public class ShopActivity extends Activity {
                 dlg.setPositiveButton("구매", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        db.collection("mypage").document("item").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                        db.collection(loginEmail).document("item").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                             @Override
                             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                                 final DocumentSnapshot document = task.getResult();
                                 MyPage_Item item = (MyPage_Item) document.toObject(MyPage_Item.class);
                                  price =Integer.parseInt(item.getPoint());
                                 //현재 갖고 있는 아이템 데이터베이스에 등록
-                                db.collection("mypage").document("MyItemList").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                db.collection(loginEmail).document("itemlist").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                                     @Override
                                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                                         final DocumentSnapshot document = task.getResult();
@@ -207,7 +207,7 @@ public class ShopActivity extends Activity {
                                             Map<String, Object> data = new HashMap<>();
                                             data.put("item" + String.valueOf(position + 1), "1");
 
-                                            db.collection("mypage").document("MyItemList").update(data).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            db.collection(loginEmail).document("itemlist").update(data).addOnCompleteListener(new OnCompleteListener<Void>() {
                                                 @Override
                                                 public void onComplete(@NonNull Task<Void> task) {
                                                     Toast.makeText(getApplicationContext(), "DB업데이트 완료.", Toast.LENGTH_SHORT).show();
@@ -219,7 +219,7 @@ public class ShopActivity extends Activity {
 
                                             Map<String, Object> data2 = new HashMap<>();
                                             data2.put("point", String.valueOf(sum));
-                                            db.collection("mypage").document("item").update(data2).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            db.collection(loginEmail).document("itemlist").update(data2).addOnCompleteListener(new OnCompleteListener<Void>() {
                                                 @Override
                                                 public void onComplete(@NonNull Task<Void> task) {
                                                     //업데이트 완료

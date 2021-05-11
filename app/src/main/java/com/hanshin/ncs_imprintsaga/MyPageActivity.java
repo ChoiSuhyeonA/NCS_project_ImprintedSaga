@@ -85,12 +85,12 @@ public class MyPageActivity extends AppCompatActivity {
         mypage_gridview.setAdapter(( MypageViewAdapter) adapter);
 
         //파이어베이스 데이터 정보가져오기
-         db.collection("mypage").document("item"). get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+         db.collection(loginEmail).document("item"). get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
              @Override
              public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                  DocumentSnapshot document = task.getResult();
                  //객체(MYPage_Item)에 뿌려주기
-                 com.hanshin.ncs_imprintsaga.MyPage_Item item = (com.hanshin.ncs_imprintsaga.MyPage_Item) document.toObject(com.hanshin.ncs_imprintsaga.MyPage_Item.class);
+                 MyPage_Item item = document.toObject(MyPage_Item.class);
                  //파이어베이스에서 데이터 가져와서, 각 위젯에 데이터 설정해주기.
                 //클래스 객체 필드와 파이어베이스 필드명 같아야함 (틀리면 값을 못가져온다)
                  mypage_levelTv.setText(item.getLevel());

@@ -87,6 +87,7 @@ public class ShopActivity extends Activity {
         shop_pointTv = findViewById(R.id.shop_pointTv);
         shop_GridView = findViewById(R.id.shop_GridView);
 
+
         //로그인한 회원정보를 가져오는 변수
         GoogleSignInAccount signInAccount = GoogleSignIn.getLastSignedInAccount(this);
         if(signInAccount != null){
@@ -219,7 +220,7 @@ public class ShopActivity extends Activity {
 
                                             Map<String, Object> data2 = new HashMap<>();
                                             data2.put("point", String.valueOf(sum));
-                                            db.collection(loginEmail).document("itemlist").update(data2).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            db.collection(loginEmail).document("item").update(data2).addOnCompleteListener(new OnCompleteListener<Void>() {
                                                 @Override
                                                 public void onComplete(@NonNull Task<Void> task) {
                                                     //업데이트 완료

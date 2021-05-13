@@ -1,46 +1,67 @@
 package com.hanshin.ncs_imprintsaga;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.ArrayList;
+
+
+
 public class MypageViewAdapter extends BaseAdapter {
     Context context;
-
+    ArrayList<String> haveItem;
 
     //그리드뷰 이미지 타이틀
-    String[] mypageListTitle=  {
-
+    String[] shopListTitle=  {
+            "item1", "item2", "item3",
+            "item4", "item5", "item6",
+            "item7", "item8", "item9"
+    };
+    //그리드뷰 이미지 저장위치
+    Integer[] shopListImage ={
+            R.drawable.item1, R.drawable.item2, R.drawable.item3,
+            R.drawable.item4, R.drawable.item5, R.drawable.item6,
+            R.drawable.item7, R.drawable.item8, R.drawable.item9
     };
 
-    //개인페이지에 내가 갖고 있는 아이템 이미지 리스트
-    Integer[] mypageListImage = {
+    //그리드뷰 이미지 가격
+    Integer[] shopListPrice ={
+            1000, 3000, 5000,
+            500, 1000, 2000,
+            800, 1500, 3000
+    };
 
+    //그리드뷰 대화상자 아이템능력
+    String[] shopListAbility = {
+            //기본 HP = 100, 기본 공격력 = 10, 기본 방어력 = 0, 능력 = x
+            "방어 10 증가", "방어 15 증가 ", "방어 20 증가 ",
+            "공격 10 증가", "공격 20 증가", "공격 30 증가",
+            "타이머 5초 증가", "힌트 1회 제공", "실드 2회"
     };
 
 
 
-    Integer[] mypageListPrice ={
-
-    };
-
-    public MypageViewAdapter(Context c) {
+    public MypageViewAdapter(Context c, ArrayList<String> haveItem) {
         context = c;
+        this.haveItem = haveItem;
     }
 
 
 
     @Override
     public int getCount() {
-        return mypageListImage.length;
+        return shopListImage.length;
     }
 
     @Override
@@ -64,10 +85,30 @@ public class MypageViewAdapter extends BaseAdapter {
         TextView text = convertView.findViewById(R.id.mypage_ListTV);
 
 
-        image.setImageResource(mypageListImage[position]);
-        image.setScaleType(ImageView.ScaleType.FIT_XY);
-        image.setPadding(20,20,20,20);
+
+//        int h = Integer.parseInt(haveItem.get(position));
+//        //아이템을 갖고 있을 경우
+//        if(h==1){
+//            image.setImageResource(shopListImage[position]);
+//            image.setScaleType(ImageView.ScaleType.FIT_XY);
+//            image.setPadding(20,20,20,20);
+//        }
+
+            image.setImageResource(shopListImage[position]);
+            image.setScaleType(ImageView.ScaleType.FIT_XY);
+            image.setPadding(20,20,20,20);
+
+
+
+
+
 
         return  convertView;
     }
+    //갖고 있는 아이템 리스트 설정
+    public void set(ArrayList<String> haveItem) {
+        this.haveItem = haveItem;
+    }
+
+
 }

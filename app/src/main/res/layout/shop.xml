@@ -13,7 +13,7 @@
         android:id="@+id/shop_charIv"
         android:layout_width="121dp"
         android:layout_height="195dp"
-        android:src="@drawable/people"
+        android:src="@drawable/player_0_0_0"
 
         app:layout_constraintBottom_toTopOf="@+id/shop_GridView"
         app:layout_constraintEnd_toEndOf="parent"

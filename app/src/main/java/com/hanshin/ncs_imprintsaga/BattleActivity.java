@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.View;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -16,6 +17,9 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.opencsv.CSVReader;
 
 import java.io.BufferedWriter;
@@ -50,6 +54,14 @@ public class BattleActivity extends AppCompatActivity {
     boolean isItemExist = true;
     String forSkill;
 
+     String stageNum;
+    //스테이지 위치 정보
+    static String num;
+
+    //구글로그인 회원정보
+    static String loginName ="";
+    static String loginEmail = "";
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,6 +80,17 @@ public class BattleActivity extends AppCompatActivity {
         timerPB = findViewById(R.id.timerPB);
         setBtnLayout = findViewById(R.id.wordBtns);
         skillBTN = findViewById(R.id.skillBTN);
+
+
+        //로그인한 회원정보를 가져오는 변수
+        GoogleSignInAccount signInAccount = GoogleSignIn.getLastSignedInAccount(this);
+        if(signInAccount != null){
+            //회원정보 이름
+            loginName = signInAccount.getDisplayName();
+            //회원정보 이메일
+            loginEmail = signInAccount.getEmail();
+            Toast.makeText(BattleActivity.this, loginName+" "+loginEmail, Toast.LENGTH_SHORT).show();
+        }
 
         if(isItemExist) { // 아이템을 보유하고 있을 경우 스킬 기능 활성화 ( 단 1회 )
             skillBTN.setVisibility(View.VISIBLE);
@@ -110,11 +133,12 @@ public class BattleActivity extends AppCompatActivity {
         enemyPB.getProgressDrawable().setColorFilter(Color.RED, PorterDuff.Mode.SRC_IN);
 
         Intent getintent = getIntent();
-        String stageNum = getintent.getStringExtra("stageNum");
+         stageNum = getintent.getStringExtra("stageNum");
         InputStream input;
         switch (stageNum){
             case "Stage1":
                 input = getResources().openRawResource(R.raw.stage1);
+                num="1";
                 try {
                     readDataFromCsv(input);
                 } catch (IOException e) {
@@ -123,6 +147,7 @@ public class BattleActivity extends AppCompatActivity {
                 break;
             case "Stage2":
                 input = getResources().openRawResource(R.raw.stage2);
+                num="2";
                 try {
                     readDataFromCsv(input);
                 } catch (IOException e) {
@@ -131,6 +156,7 @@ public class BattleActivity extends AppCompatActivity {
                 break;
             case "Stage3":
                 input = getResources().openRawResource(R.raw.stage3);
+                num="3";
                 try {
                     readDataFromCsv(input);
                 } catch (IOException e) {
@@ -139,6 +165,7 @@ public class BattleActivity extends AppCompatActivity {
                 break;
             case "Stage4":
                 input = getResources().openRawResource(R.raw.stage4);
+                num="4";
                 try {
                     readDataFromCsv(input);
                 } catch (IOException e) {
@@ -147,6 +174,7 @@ public class BattleActivity extends AppCompatActivity {
                 break;
             case "Stage5":
                 input = getResources().openRawResource(R.raw.stage5);
+                num="5";
                 try {
                     readDataFromCsv(input);
                 } catch (IOException e) {
@@ -155,6 +183,7 @@ public class BattleActivity extends AppCompatActivity {
                 break;
             case "Stage6":
                 input = getResources().openRawResource(R.raw.stage6);
+                num="6";
                 try {
                     readDataFromCsv(input);
                 } catch (IOException e) {
@@ -163,6 +192,7 @@ public class BattleActivity extends AppCompatActivity {
                 break;
             case "Stage7":
                 input = getResources().openRawResource(R.raw.stage7);
+                num="7";
                 try {
                     readDataFromCsv(input);
                 } catch (IOException e) {
@@ -171,6 +201,7 @@ public class BattleActivity extends AppCompatActivity {
                 break;
             case "Stage8":
                 input = getResources().openRawResource(R.raw.stage8);
+                num="8";
                 try {
                     readDataFromCsv(input);
                 } catch (IOException e) {
@@ -179,6 +210,7 @@ public class BattleActivity extends AppCompatActivity {
                 break;
             case "Stage9":
                 input = getResources().openRawResource(R.raw.stage9);
+                num="9";
                 try {
                     readDataFromCsv(input);
                 } catch (IOException e) {
@@ -187,6 +219,7 @@ public class BattleActivity extends AppCompatActivity {
                 break;
             case "Stage10":
                 input = getResources().openRawResource(R.raw.stage10);
+                num="10";
                 try {
                     readDataFromCsv(input);
                 } catch (IOException e) {

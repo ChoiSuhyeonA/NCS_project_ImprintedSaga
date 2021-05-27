@@ -11,10 +11,17 @@ import android.widget.Button;
 import android.widget.ScrollView;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+
 public class StageActivity extends AppCompatActivity {
     Button main_MY, main_SHOP, main_SETTING, main_TRAINING;
     ScrollView scrollview;
     Button stageBtn[] = new Button[9];
+
+    //구글로그인 회원정보
+    static String loginName ="";
+    static String loginEmail = "";
 
 
     @Override
@@ -27,6 +34,16 @@ public class StageActivity extends AppCompatActivity {
         main_SETTING = findViewById(R.id.main_setting_btn);
         main_TRAINING = findViewById(R.id.main_training_btn);
         scrollview = findViewById(R.id.scrollview);
+
+        //로그인한 회원정보를 가져오는 변수
+        GoogleSignInAccount signInAccount = GoogleSignIn.getLastSignedInAccount(this);
+        if(signInAccount != null){
+            //회원정보 이름
+            loginName = signInAccount.getDisplayName();
+            //회원정보 이메일
+            loginEmail = signInAccount.getEmail();
+            Toast.makeText(StageActivity.this, loginName+" "+loginEmail, Toast.LENGTH_SHORT).show();
+        }
 
         main_MY.setOnClickListener(new View.OnClickListener() {
             @Override

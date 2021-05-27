@@ -1,6 +1,6 @@
 package com.hanshin.ncs_imprintsaga;
 
-public class stageResult {
+public class StageResult {
     String answerRate;
     String correctNum;
     String rank;

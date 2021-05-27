@@ -35,7 +35,7 @@ public class Battle_FinishDialog {
     int correct;
     int total;
     int rank;
-    double answerRate;
+    int answerRate;
 
     public Battle_FinishDialog(Context context) {
         this.context = context;
@@ -61,7 +61,7 @@ public class Battle_FinishDialog {
         // 커스텀 다이얼로그의 각 위젯들을 정의한다.
          correct = correctNum;
          total = totalNum;
-         answerRate = ((double)correct/total)*100; // 정답률
+         answerRate = (int)(((double)correct/total)*100); // 정답률
 
         if(answerRate<40)
             rank = 1;

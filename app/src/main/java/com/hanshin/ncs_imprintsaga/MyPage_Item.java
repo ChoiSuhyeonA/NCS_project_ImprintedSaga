@@ -2,6 +2,7 @@ package com.hanshin.ncs_imprintsaga;
 
 public class MyPage_Item {
     String level;
+    String exp;
     String  point;
     String  stage;
     String atk;
@@ -15,6 +16,14 @@ public class MyPage_Item {
 
     public void setLevel(String level) {
         this.level = level;
+    }
+
+    public String getExp() {
+        return exp;
+    }
+
+    public void setExp(String exp) {
+        this.exp = exp;
     }
 
     public String getPoint() {

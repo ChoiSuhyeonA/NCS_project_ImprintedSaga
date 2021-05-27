@@ -8,12 +8,9 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -28,7 +25,7 @@ public class mapSelectDialog {
     //파이어베이스
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     //파이어베이스로부터 받을 정보데이타 변수클래스
-    stageResult stageData = new stageResult();
+    StageResult stageData = new StageResult();
 
     public mapSelectDialog(Context context) {
         this.context = context;
@@ -63,7 +60,7 @@ public class mapSelectDialog {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 DocumentSnapshot document = task.getResult();
-                stageData = document.toObject(stageResult.class);
+                stageData = document.toObject(StageResult.class);
                 int rank = Integer.parseInt(stageData.rank);
                 String total = stageData.totalNum;
                 String correct = stageData.correctNum;

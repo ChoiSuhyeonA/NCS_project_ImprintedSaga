@@ -29,6 +29,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -45,6 +47,7 @@ public class MyPageActivity extends AppCompatActivity {
     ImageView mypage_charIv;
     ImageButton mypage_closeBtn;
     TextView mypage_levelTv;
+    TextView mypage_expTv;
     TextView mypage_pointTv;
     TextView mypage_stageTv;
     TextView mypage_hpTv;
@@ -58,13 +61,24 @@ public class MyPageActivity extends AppCompatActivity {
     MypageViewAdapter adapter;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     MyPage_Item item;
-
+    Mypage_checkitem check;
+    Medal medalInfo;
     //현재 갖고있는 아이템을 보여줌
 
 
     //구글로그인 회원정보
     String loginName ="";
     String loginEmail = "";
+    //스테이지 위치
+    String stageInfo="0";
+    //각 스테이지 정답률
+    ArrayList<Integer>  answerRate = new ArrayList<Integer>();
+    //정답률 계산하기 위해 사용되는 변수이다.
+    int sum=0;
+    int a=0;
+    int k;
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,6 +90,7 @@ public class MyPageActivity extends AppCompatActivity {
         mypage_closeBtn = findViewById(R.id.mypage_closeBtn); // 창닫기 버튼
         //데이터 위젯
         mypage_levelTv = findViewById(R.id.mypage_levelTv); // 레벨
+        mypage_expTv = findViewById(R.id.mypage_expTv);
         mypage_pointTv = findViewById(R.id.mypage_pointTv); // 포인트
         mypage_stageTv = findViewById(R.id.mypage_stageTv); // 스테이지
         mypage_atkTv = findViewById(R.id.mypage_atkTv); //공격력
@@ -215,9 +230,11 @@ public class MyPageActivity extends AppCompatActivity {
                                        db.collection(loginEmail).document("item").update(data);
                                        Map<String, Object> data11 = new HashMap<>();
                                        data11.put("item1", checkItem.get(position));
+                                       //체크리스트 업데이트
                                        db.collection(loginEmail).document("itemcheck").update(data11);
+                                       //이미지 업데이트
+                                       imageChange();
                                     }
-                                   //이미지 업데이트 하기
                                    break;
                                case 1:
                                    if(checkItem.get(position).equals("0") && checkItem.get(position-1).equals("0")  && checkItem.get(position+1).equals("0") ){
@@ -476,25 +493,84 @@ public class MyPageActivity extends AppCompatActivity {
                  //파이어베이스에서 데이터 가져와서, 각 위젯에 데이터 설정해주기.
                 //클래스 객체 필드와 파이어베이스 필드명 같아야함 (틀리면 값을 못가져온다)
                  mypage_levelTv.setText(item.getLevel());
+                 mypage_expTv.setText(item.getExp());
                  mypage_pointTv.setText(item.getPoint());
                  mypage_stageTv.setText(item.getStage());
                  mypage_atkTv.setText(item.getAtk());
                  mypage_dfdTv.setText(item.getDfd());
                  mypage_skillTv.setText(item.getSkill());
+
+                 //변수에 따로 데이터를 저장
+                 stageInfo = item.getStage();
+                 int achieveResult = (int)(((double)Integer.parseInt(stageInfo) / 9) * 100);
+                 // 달성도 프로그레스바 설정
+                 mypage_achievementPb.setProgress(achieveResult);
+
              }
          });
 
 
+         //메달 정보 보여주기
+        db.collection(loginEmail).document("medal").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                DocumentSnapshot document = task.getResult();
+                medalInfo = document.toObject(Medal.class);
+                String m1 = medalInfo.getMedal1();
+                String m2 = medalInfo.getMedal2();
+                String m3 = medalInfo.getMedal3();
+                String m4 = medalInfo.getMedal4();
+                String m5 = medalInfo.getMedal5();
+
+                if(m1.equals("0")){
+                    medal1.setVisibility(View.GONE);
+                }else{
+                    medal1.setVisibility(View.VISIBLE);
+                }
+                if(m2.equals("0")){
+                    medal2.setVisibility(View.GONE);
+                }else{
+                    medal2.setVisibility(View.VISIBLE);
+                }
+                if(m3.equals("0")){
+                    medal3.setVisibility(View.GONE);
+                }else{
+                    medal3.setVisibility(View.VISIBLE);
+                }
+                if(m4.equals("0")){
+                    medal4.setVisibility(View.GONE);
+                }else{
+                    medal4.setVisibility(View.VISIBLE);
+                }
+                if(m5.equals("0")){
+                    medal5.setVisibility(View.GONE);
+                }else{
+                    medal5.setVisibility(View.VISIBLE);
+                }
+            }
+        });
 
 
 
-       //메달숨기기
-//        medal1.setVisibility(View.GONE);
 
-        // 달성도 프로그레스바 설정
-        mypage_achievementPb.setProgress(40);
-        // 정답률 프로그레스바 설정
-        mypage_answerratePb.setProgress(80);
+        //총 정답률 정보 가져오기
+        for(int i=0; i<9; i++){
+            k=i;
+            db.collection(loginEmail).document("stage"+String.valueOf(i+1)).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+
+                 DocumentSnapshot document = task.getResult();
+                 StageResult stageResult = document.toObject(StageResult.class);
+                 if(!stageResult.getAnswerRate().equals("0")){
+                     answerRate.add(Integer.parseInt(stageResult.getAnswerRate()));
+                     calAnswerRate(k);
+                 }
+                }
+            });
+        }
+
+
 
         //창닫기 버튼 클릭시 메인페이지로 이동하기
        mypage_closeBtn.setOnClickListener(new View.OnClickListener() {
@@ -503,6 +579,42 @@ public class MyPageActivity extends AppCompatActivity {
                 Intent intent =  new Intent(getApplicationContext(),StageActivity.class);
                 startActivity(intent);
                 finish();
+            }
+        });
+    }
+
+    private void calAnswerRate(int k) {
+
+        sum +=answerRate.get(a);
+        int totalAnswerRate;
+        if(answerRate.size()==0){
+            totalAnswerRate = sum / (answerRate.size()+1);
+        }else{
+            totalAnswerRate = sum / answerRate.size();
+        }
+
+        mypage_answerratePb.setProgress(totalAnswerRate);
+        a++;
+
+    }
+
+
+    //아이템을 장착했을 때, 이미지 변화
+    private void imageChange() {
+        db.collection(loginEmail).document("itemcheck").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                DocumentSnapshot document = task.getResult();
+                check = document.toObject(Mypage_checkitem.class);
+                String i1= check.getItem1();
+                String i2= check.getItem1();
+                String i3= check.getItem1();
+                String i4= check.getItem1();
+                String i5= check.getItem1();
+                String i6= check.getItem1();
+                String i7= check.getItem1();
+                String i8= check.getItem1();
+                String i9= check.getItem1();
             }
         });
     }

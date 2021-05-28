@@ -56,18 +56,18 @@ public class ShopActivity extends Activity {
 
     //그리드뷰 이미지 가격
     Integer[] shopListPrice ={
-            1000, 3000, 5000,
-            500, 1000, 2000,
-            800, 1500, 3000
+            200,  300,  500,
+            800, 1000, 1500,
+            1500, 2000, 3000
     };
 
 
     //그리드뷰 대화상자 아이템능력
     String[] shopListAbility = {
             //기본 HP = 100, 기본 공격력 = 10, 기본 방어력 = 0, 능력 = x
-            "방어 10 증가", "방어 15 증가 ", "방어 20 증가 ",
-            "공격 10 증가", "공격 20 증가", "공격 30 증가",
-            "힌트 1회 제공","힌트 2회 제공",  "힌트 3회 제공"
+            "방어 10 증가", "공격 10 증가 ", "힌트 1회 제공",
+            "방어 20 증가", "공격 20 증가", "힌트 2회 제공",
+            "방어 30 증가", "공격 30 증가",  "힌트 3회 제공"
     };
 
     //파이어베이스 데이터 정보가져오기
@@ -153,89 +153,92 @@ public class ShopActivity extends Activity {
                 dlg.setPositiveButton("구매", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        db.collection(loginEmail).document("item").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                final DocumentSnapshot document = task.getResult();
-                                MyPage_Item item = (MyPage_Item) document.toObject(MyPage_Item.class);
-                                 price =Integer.parseInt(item.getPoint());
-                                //현재 갖고 있는 아이템 데이터베이스에 등록
-                                db.collection(loginEmail).document("itemlist").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                        final DocumentSnapshot document = task.getResult();
-                                        //파이어베이스에서 정보 가져오기
-                                        Mypage_HavingItem have = document.toObject(Mypage_HavingItem.class);
+                        if(position==0 || position==1 || position==2){
+                            db.collection(loginEmail).document("item").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                    final DocumentSnapshot document = task.getResult();
+                                    MyPage_Item item = (MyPage_Item) document.toObject(MyPage_Item.class);
+                                    price =Integer.parseInt(item.getPoint());
+                                    //현재 갖고 있는 아이템 데이터베이스에 등록
+                                    db.collection(loginEmail).document("itemlist").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                            final DocumentSnapshot document = task.getResult();
+                                            //파이어베이스에서 정보 가져오기
+                                            Mypage_HavingItem have = document.toObject(Mypage_HavingItem.class);
 
-                                        int which = position+1;
-                                        //현재 아이템 정보 가져오기
+                                            int which = position+1;
+                                            //현재 아이템 정보 가져오기
 
-                                        if(which ==1){
-                                            s = have.getItem1();
-                                        }
-                                        if(which ==2){
-                                            s = have.getItem2();
-                                        }
-                                        if(which ==3){
-                                            s = have.getItem3();
-                                        }
-                                        if(which ==4){
-                                            s = have.getItem4();
-                                        }
-                                        if(which ==5){
-                                            s = have.getItem5();
-                                        }
-                                        if(which ==6){
-                                            s = have.getItem6();
-                                        }
-                                        if(which ==7){
-                                            s = have.getItem7();
-                                        }
-                                        if(which ==8){
-                                            s = have.getItem8();
-                                        }
-                                        if(which ==9){
-                                            s = have.getItem9();
-                                        }
-
-
-                                        //아이템을 갖고 있으면 실행 ( 0은 소유x , 1은 소유o)
-                                        if (s.equals("1")) {
-                                            Toast.makeText(getApplicationContext(), shopListTitle[position] + "가 이미 있으므로 구매할 수 없습니다.", Toast.LENGTH_SHORT).show();
-                                        }
-                                        //아이템을 갖고 있지 않으면 실행
-                                        else {
-                                            Map<String, Object> data = new HashMap<>();
-                                            data.put("item" + String.valueOf(position + 1), "1");
-
-                                            db.collection(loginEmail).document("itemlist").update(data).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                @Override
-                                                public void onComplete(@NonNull Task<Void> task) {
-                                                    Toast.makeText(getApplicationContext(), "DB업데이트 완료.", Toast.LENGTH_SHORT).show();
-                                                }
-                                            });
-                                            //포인트 남은 금액 = sum
-                                            int sum = price - shopListPrice[position];
-                                            //현재 남은 포인트 최신화 시켜주기.
-
-                                            Map<String, Object> data2 = new HashMap<>();
-                                            data2.put("point", String.valueOf(sum));
-                                            db.collection(loginEmail).document("item").update(data2).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                @Override
-                                                public void onComplete(@NonNull Task<Void> task) {
-                                                    //업데이트 완료
-                                                    Toast.makeText(getApplicationContext(), shopListTitle[position] + "를 구매했습니다.", Toast.LENGTH_SHORT).show();
-                                                }
-                                            });
-                                            shop_pointTv.setText(String.valueOf(sum));
-
-                                        }
-                                    }
-                                });
+                                            if(which ==1){
+                                                s = have.getItem1();
+                                            }
+                                            if(which ==2){
+                                                s = have.getItem2();
+                                            }
+                                            if(which ==3){
+                                                s = have.getItem3();
+                                            }
+                                            if(which ==4){
+                                                s = have.getItem4();
+                                            }
+                                            if(which ==5){
+                                                s = have.getItem5();
+                                            }
+                                            if(which ==6){
+                                                s = have.getItem6();
+                                            }
+                                            if(which ==7){
+                                                s = have.getItem7();
+                                            }
+                                            if(which ==8){
+                                                s = have.getItem8();
+                                            }
+                                            if(which ==9){
+                                                s = have.getItem9();
+                                            }
 
 
-                            }
-                        });
+                                            //아이템을 갖고 있으면 실행 ( 0은 소유x , 1은 소유o)
+                                            if (s.equals("1")) {
+                                                Toast.makeText(getApplicationContext(), shopListTitle[position] + "가 이미 있으므로 구매할 수 없습니다.", Toast.LENGTH_SHORT).show();
+                                            }
+                                            //아이템을 갖고 있지 않으면 실행
+                                            else {
+                                                Map<String, Object> data = new HashMap<>();
+                                                data.put("item" + String.valueOf(position + 1), "1");
+
+                                                db.collection(loginEmail).document("itemlist").update(data).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<Void> task) {
+                                                        Toast.makeText(getApplicationContext(), shopListTitle[position] + "를 구매했습니다.", Toast.LENGTH_SHORT).show();
+                                                    }
+                                                });
+                                                //포인트 남은 금액 = sum
+                                                int sum = price - shopListPrice[position];
+                                                //현재 남은 포인트 최신화 시켜주기.
+
+                                                Map<String, Object> data2 = new HashMap<>();
+                                                data2.put("point", String.valueOf(sum));
+                                                db.collection(loginEmail).document("item").update(data2).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<Void> task) {
+                                                    }
+                                                });
+                                                shop_pointTv.setText(String.valueOf(sum));
+
+                                            }
+                                        }
+                                    });
+
+
+                                }
+                            });
+                        }else{
+                            Toast.makeText(getApplicationContext(), "현재 구매할 수 없는 아이템입니다.", Toast.LENGTH_SHORT).show();
+                        }
+
                     }
                 }).setNegativeButton("취소", null);
                 dlg.show();

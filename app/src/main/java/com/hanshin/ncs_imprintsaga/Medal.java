@@ -1,11 +1,11 @@
 package com.hanshin.ncs_imprintsaga;
 
 public class Medal {
-    String medal1="0";
-    String medal2="0";
-    String medal3="0";
-    String medal4="0";
-    String medal5="0";
+    String medal1;
+    String medal2;
+    String medal3;
+    String medal4;
+    String medal5;
 
     public String getMedal1() {
         return medal1;

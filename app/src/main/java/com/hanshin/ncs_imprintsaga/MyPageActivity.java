@@ -119,19 +119,20 @@ public class MyPageActivity extends AppCompatActivity {
 
         //그리드뷰 이미지 가격
         Integer[] shopListPrice ={
-                1000, 3000, 5000,
-                500, 1000, 2000,
-                800, 1500, 3000
+                200,  300,  500,
+                800, 1000, 1500,
+                1500, 2000, 3000
         };
 
 
         //그리드뷰 대화상자 아이템능력
         final String[] shopListAbility = {
                 //기본 HP = 100, 기본 공격력 = 10, 기본 방어력 = 0, 능력 = x
-                "방어 10 증가", "방어 15 증가 ", "방어 20 증가 ",
-                "공격 10 증가", "공격 20 증가", "공격 30 증가",
-                "힌트 1회 제공", "힌트 2회 제공", "힌트 3회 제공"
+                "방어 10 증가", "공격 10 증가 ", "힌트 1회 제공",
+                "방어 20 증가", "공격 20 증가", "힌트 2회 제공",
+                "방어 30 증가", "공격 30 증가",  "힌트 3회 제공"
         };
+
 
 
 
@@ -221,127 +222,133 @@ public class MyPageActivity extends AppCompatActivity {
                         }else{
                            switch (pos){
                                case 0:
-                                   if(checkItem.get(position).equals("0") && checkItem.get(position+1).equals("0")  && checkItem.get(position+2).equals("0")  ){
+                                   if(checkItem.get(position).equals("0") && checkItem.get(position+3).equals("0")  && checkItem.get(position+6).equals("0")  ){
                                        item.setDfd(String.valueOf(Integer.parseInt(item.getDfd())+10));
                                        checkItem.set(position, "1");
                                        mypage_dfdTv.setText(item.getDfd());
                                        Map<String, Object> data = new HashMap<>();
                                        data.put("dfd" , item.getDfd());
                                        db.collection(loginEmail).document("item").update(data);
-                                       Map<String, Object> data11 = new HashMap<>();
-                                       data11.put("item1", checkItem.get(position));
+                                       Map<String, Object> data2 = new HashMap<>();
+                                       data2.put("item1", checkItem.get(position));
                                        //체크리스트 업데이트
-                                       db.collection(loginEmail).document("itemcheck").update(data11);
+                                       db.collection(loginEmail).document("itemcheck").update(data2);
                                        //이미지 업데이트
                                        imageChange();
                                     }
                                    break;
                                case 1:
-                                   if(checkItem.get(position).equals("0") && checkItem.get(position-1).equals("0")  && checkItem.get(position+1).equals("0") ){
-                                       item.setDfd(String.valueOf(Integer.parseInt(item.getDfd())+15));
-                                       checkItem.set(position, "1");
-                                       mypage_dfdTv.setText(item.getDfd());
-                                       Map<String, Object> data2 = new HashMap<>();
-                                       data2.put("dfd" , item.getDfd());
-                                       db.collection(loginEmail).document("item").update(data2);
-                                       Map<String, Object> data22 = new HashMap<>();
-                                       data22.put("item2", checkItem.get(position));
-                                       db.collection(loginEmail).document("itemcheck").update(data22);
-                                   }
-                                   break;
-                               case 2:
-                                   if(checkItem.get(position).equals("0")&& checkItem.get(position-1).equals("0")  && checkItem.get(position-2).equals("0") ){
-                                       item.setDfd(String.valueOf(Integer.parseInt(item.getDfd())+20));
-                                       checkItem.set(position, "1");
-                                       mypage_dfdTv.setText(item.getDfd());
-                                       Map<String, Object> data3 = new HashMap<>();
-                                       data3.put("dfd" , item.getDfd());
-                                       db.collection(loginEmail).document("item").update(data3);
-                                       Map<String, Object> data33 = new HashMap<>();
-                                       data33.put("item3", checkItem.get(position));
-                                       db.collection(loginEmail).document("itemcheck").update(data33);
-                                   }
-                                   break;
-                               case 3:
-                                   if(checkItem.get(position).equals("0")&& checkItem.get(position+1).equals("0")&& checkItem.get(position+2).equals("0")){
+                                   if(checkItem.get(position).equals("0") && checkItem.get(position+3).equals("0")  && checkItem.get(position+6).equals("0") ){
                                        item.setAtk(String.valueOf(Integer.parseInt(item.getAtk())+10));
                                        checkItem.set(position, "1");
                                        mypage_atkTv.setText(item.getAtk());
-                                       Map<String, Object> data4 = new HashMap<>();
-                                       data4.put("atk" , item.getAtk());
-                                       db.collection(loginEmail).document("item").update(data4);
-                                       Map<String, Object> data44 = new HashMap<>();
-                                       data44.put("item4", checkItem.get(position));
-                                       db.collection(loginEmail).document("itemcheck").update(data44);
+                                       Map<String, Object> data = new HashMap<>();
+                                       data.put("atk" , item.getAtk());
+                                       db.collection(loginEmail).document("item").update(data);
+                                       Map<String, Object> data2 = new HashMap<>();
+                                       data2.put("item2", checkItem.get(position));
+                                       db.collection(loginEmail).document("itemcheck").update(data2);
+
+                                   }
+                                   break;
+                               case 2:
+                                   if(checkItem.get(position).equals("0")&& checkItem.get(position+3).equals("0")  && checkItem.get(position+6).equals("0") ){
+                                       item.setSkill(shopListAbility[pos]);
+                                       checkItem.set(position, "1");
+                                       mypage_skillTv.setText(item.getSkill());
+                                       Map<String, Object> data = new HashMap<>();
+                                       data.put("skill" , item.getSkill());
+                                       db.collection(loginEmail).document("item").update(data);
+                                       Map<String, Object> data2 = new HashMap<>();
+                                       data2.put("item3", checkItem.get(position));
+                                       db.collection(loginEmail).document("itemcheck").update(data2);
+                                   }
+                                   break;
+                               case 3:
+                                   if(checkItem.get(position).equals("0")&& checkItem.get(position-3).equals("0")&& checkItem.get(position+3).equals("0")){
+
+                                       item.setDfd(String.valueOf(Integer.parseInt(item.getDfd())+20));
+                                       checkItem.set(position, "1");
+                                       mypage_dfdTv.setText(item.getDfd());
+                                       Map<String, Object> data = new HashMap<>();
+                                       data.put("dfd" , item.getDfd());
+                                       db.collection(loginEmail).document("item").update(data);
+                                       Map<String, Object> data2 = new HashMap<>();
+                                       data2.put("item4", checkItem.get(position));
+                                       db.collection(loginEmail).document("itemcheck").update(data2);
                                    }
 
                                    break;
                                case 4:
-                                   if(checkItem.get(position).equals("0")&& checkItem.get(position-1).equals("0")&& checkItem.get(position+1).equals("0")){
+                                   if(checkItem.get(position).equals("0")&& checkItem.get(position-3).equals("0")&& checkItem.get(position+3).equals("0")){
                                        item.setAtk(String.valueOf(Integer.parseInt(item.getAtk())+20));
                                        checkItem.set(position, "1");
                                        mypage_atkTv.setText(item.getAtk());
-                                       Map<String, Object> data5 = new HashMap<>();
-                                       data5.put("atk" , item.getAtk());
-                                       db.collection(loginEmail).document("item").update(data5);
-                                       Map<String, Object> data55 = new HashMap<>();
-                                       data55.put("item5", checkItem.get(position));
-                                       db.collection(loginEmail).document("itemcheck").update(data55);
+                                       Map<String, Object> data = new HashMap<>();
+                                       data.put("atk" , item.getAtk());
+                                       db.collection(loginEmail).document("item").update(data);
+                                       Map<String, Object> data2 = new HashMap<>();
+                                       data2.put("item5", checkItem.get(position));
+                                       db.collection(loginEmail).document("itemcheck").update(data2);
                                    }
 
                                    break;
                                case 5:
-                                   if(checkItem.get(position).equals("0")&& checkItem.get(position-2).equals("0")&& checkItem.get(position-1).equals("0")){
-                                       item.setAtk(String.valueOf(Integer.parseInt(item.getAtk())+30));
+                                   if(checkItem.get(position).equals("0")&& checkItem.get(position-3).equals("0")&& checkItem.get(position+3).equals("0")){
+                                       item.setSkill(shopListAbility[pos]);
                                        checkItem.set(position, "1");
-                                       mypage_atkTv.setText(item.getAtk());
-                                       Map<String, Object> data6 = new HashMap<>();
-                                       data6.put("atk" , item.getAtk());
-                                       db.collection(loginEmail).document("item").update(data6);
-                                       Map<String, Object> data66 = new HashMap<>();
-                                       data66.put("item6", checkItem.get(position));
-                                       db.collection(loginEmail).document("itemcheck").update(data66);
-                                       break;
+                                       mypage_skillTv.setText(item.getSkill());
+                                       Map<String, Object> data = new HashMap<>();
+                                       data.put("skill" , item.getSkill());
+                                       db.collection(loginEmail).document("item").update(data);
+                                       Map<String, Object> data2 = new HashMap<>();
+                                       data2.put("item6", checkItem.get(position));
+                                       db.collection(loginEmail).document("itemcheck").update(data2);
                                    }
 
                                case 6:
-                                   if(checkItem.get(position).equals("0")&& checkItem.get(position+1).equals("0")&& checkItem.get(position+2).equals("0")){
-                                       item.setSkill(shopListAbility[pos]);
+                                   if(checkItem.get(position).equals("0")&& checkItem.get(position-6).equals("0")&& checkItem.get(position-3).equals("0")){
+
+
+                                       item.setDfd(String.valueOf(Integer.parseInt(item.getDfd())+30));
                                        checkItem.set(position, "1");
-                                       mypage_skillTv.setText(item.getSkill());
-                                       Map<String, Object> data7 = new HashMap<>();
-                                       data7.put("skill" , item.getSkill());
-                                       db.collection(loginEmail).document("item").update(data7);
-                                       Map<String, Object> data77 = new HashMap<>();
-                                       data77.put("item7", checkItem.get(position));
-                                       db.collection(loginEmail).document("itemcheck").update(data77);
+                                       mypage_dfdTv.setText(item.getDfd());
+                                       Map<String, Object> data = new HashMap<>();
+                                       data.put("dfd" , item.getDfd());
+                                       db.collection(loginEmail).document("item").update(data);
+                                       Map<String, Object> data2 = new HashMap<>();
+                                       data2.put("item7", checkItem.get(position));
+                                       db.collection(loginEmail).document("itemcheck").update(data2);
                                    }
                                    break;
                                case 7:
-                                   if(checkItem.get(position).equals("0")&& checkItem.get(position-1).equals("0")&& checkItem.get(position+1).equals("0")){
-                                       item.setSkill(shopListAbility[pos]);
+                                   if(checkItem.get(position).equals("0")&& checkItem.get(position-6).equals("0")&& checkItem.get(position-3).equals("0")){
+
+
+                                       item.setAtk(String.valueOf(Integer.parseInt(item.getAtk())+30));
                                        checkItem.set(position, "1");
-                                       mypage_skillTv.setText(item.getSkill());
-                                       Map<String, Object> data8 = new HashMap<>();
-                                       data8.put("skill" , item.getSkill());
-                                       db.collection(loginEmail).document("item").update(data8);
-                                       Map<String, Object> data88 = new HashMap<>();
-                                       data88.put("item8", checkItem.get(position));
-                                       db.collection(loginEmail).document("itemcheck").update(data88);
+                                       mypage_atkTv.setText(item.getAtk());
+                                       Map<String, Object> data = new HashMap<>();
+                                       data.put("atk" , item.getAtk());
+                                       db.collection(loginEmail).document("item").update(data);
+                                       Map<String, Object> data2 = new HashMap<>();
+                                       data2.put("item8", checkItem.get(position));
+                                       db.collection(loginEmail).document("itemcheck").update(data2);
+                                       break;
                                    }
 
                                    break;
                                case 8:
-                                   if(checkItem.get(position).equals("0")&& checkItem.get(position-2).equals("0")&& checkItem.get(position-1).equals("0")){
+                                   if(checkItem.get(position).equals("0")&& checkItem.get(position-6).equals("0")&& checkItem.get(position-3).equals("0")){
                                        item.setSkill(shopListAbility[pos]);
                                        checkItem.set(position, "1");
                                        mypage_skillTv.setText(item.getSkill());
-                                       Map<String, Object> data9 = new HashMap<>();
-                                       data9.put("skill" , item.getSkill());
-                                       db.collection(loginEmail).document("item").update(data9);
-                                       Map<String, Object> data99 = new HashMap<>();
-                                       data99.put("item9", checkItem.get(position));
-                                       db.collection(loginEmail).document("itemcheck").update(data99);
+                                       Map<String, Object> data = new HashMap<>();
+                                       data.put("skill" , item.getSkill());
+                                       db.collection(loginEmail).document("item").update(data);
+                                       Map<String, Object> data2 = new HashMap<>();
+                                       data2.put("item9", checkItem.get(position));
+                                       db.collection(loginEmail).document("itemcheck").update(data2);
                                    }
                                    break;
                            }
@@ -370,43 +377,46 @@ public class MyPageActivity extends AppCompatActivity {
                                     break;
                                 case 1:
                                     if(checkItem.get(position).equals("1")){
-                                        item.setDfd(String.valueOf(Integer.parseInt(item.getDfd())-15));
+                                        item.setAtk(String.valueOf(Integer.parseInt(item.getAtk())-10));
                                         checkItem.set(position, "0");
                                     }
-                                    mypage_dfdTv.setText(item.getDfd());
+                                    mypage_atkTv.setText(item.getAtk());
                                     Map<String, Object> data2 = new HashMap<>();
-                                    data2.put("dfd" , item.getDfd());
+                                    data2.put("atk" , item.getAtk());
                                     db.collection(loginEmail).document("item").update(data2);
                                     Map<String, Object> data22 = new HashMap<>();
                                     data22.put("item2", checkItem.get(position));
                                     db.collection(loginEmail).document("itemcheck").update(data22);
                                     break;
+
                                 case 2:
                                     if(checkItem.get(position).equals("1")){
-                                        item.setDfd(String.valueOf(Integer.parseInt(item.getDfd())-20));
+                                        item.setSkill("-");
                                         checkItem.set(position, "0");
                                     }
-                                    mypage_dfdTv.setText(item.getDfd());
+                                    mypage_skillTv.setText(item.getSkill());
                                     Map<String, Object> data3 = new HashMap<>();
-                                    data3.put("dfd" , item.getDfd());
+                                    data3.put("skill" , item.getSkill());
                                     db.collection(loginEmail).document("item").update(data3);
                                     Map<String, Object> data33 = new HashMap<>();
                                     data33.put("item3", checkItem.get(position));
                                     db.collection(loginEmail).document("itemcheck").update(data33);
                                     break;
+
                                 case 3:
                                     if(checkItem.get(position).equals("1")){
-                                        item.setAtk(String.valueOf(Integer.parseInt(item.getAtk())-10));
+                                        item.setDfd(String.valueOf(Integer.parseInt(item.getDfd())-20));
                                         checkItem.set(position, "0");
                                     }
-                                    mypage_atkTv.setText(item.getAtk());
+                                    mypage_dfdTv.setText(item.getDfd());
                                     Map<String, Object> data4 = new HashMap<>();
-                                    data4.put("atk" , item.getAtk());
+                                    data4.put("dfd" , item.getDfd());
                                     db.collection(loginEmail).document("item").update(data4);
                                     Map<String, Object> data44 = new HashMap<>();
                                     data44.put("item4", checkItem.get(position));
                                     db.collection(loginEmail).document("itemcheck").update(data44);
                                     break;
+
                                 case 4:
                                     if(checkItem.get(position).equals("1")){
                                         item.setAtk(String.valueOf(Integer.parseInt(item.getAtk())-20));
@@ -422,43 +432,46 @@ public class MyPageActivity extends AppCompatActivity {
                                     break;
                                 case 5:
                                     if(checkItem.get(position).equals("1")){
-                                        item.setAtk(String.valueOf(Integer.parseInt(item.getAtk())-30));
+                                        item.setSkill("-");
                                         checkItem.set(position, "0");
                                     }
-                                    mypage_atkTv.setText(item.getAtk());
+                                    mypage_skillTv.setText(item.getSkill());
                                     Map<String, Object> data6 = new HashMap<>();
-                                    data6.put("atk" , item.getAtk());
+                                    data6.put("skill" , item.getSkill());
                                     db.collection(loginEmail).document("item").update(data6);
                                     Map<String, Object> data66 = new HashMap<>();
                                     data66.put("item6", checkItem.get(position));
                                     db.collection(loginEmail).document("itemcheck").update(data66);
                                     break;
+
                                 case 6:
                                     if(checkItem.get(position).equals("1")){
-                                        item.setSkill("-");
+                                        item.setDfd(String.valueOf(Integer.parseInt(item.getDfd())-30));
                                         checkItem.set(position, "0");
                                     }
-                                    mypage_skillTv.setText(item.getSkill());
+                                    mypage_dfdTv.setText(item.getDfd());
                                     Map<String, Object> data7 = new HashMap<>();
-                                    data7.put("skill" , item.getSkill());
+                                    data7.put("dfd" , item.getDfd());
                                     db.collection(loginEmail).document("item").update(data7);
                                     Map<String, Object> data77 = new HashMap<>();
                                     data77.put("item7", checkItem.get(position));
                                     db.collection(loginEmail).document("itemcheck").update(data77);
                                     break;
+
                                 case 7:
                                     if(checkItem.get(position).equals("1")){
-                                        item.setSkill("-");
+                                        item.setAtk(String.valueOf(Integer.parseInt(item.getAtk())-30));
                                         checkItem.set(position, "0");
                                     }
-                                    mypage_skillTv.setText(item.getSkill());
+                                    mypage_atkTv.setText(item.getAtk());
                                     Map<String, Object> data8 = new HashMap<>();
-                                    data8.put("skill" , item.getSkill());
+                                    data8.put("atk" , item.getAtk());
                                     db.collection(loginEmail).document("item").update(data8);
                                     Map<String, Object> data88 = new HashMap<>();
                                     data88.put("item8", checkItem.get(position));
                                     db.collection(loginEmail).document("itemcheck").update(data88);
                                     break;
+
                                 case 8:
                                     if(checkItem.get(position).equals("1")){
                                         item.setSkill("-");

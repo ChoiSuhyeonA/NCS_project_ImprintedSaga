@@ -17,12 +17,20 @@ public class ShopViewAdapter extends BaseAdapter {
             R.drawable.item4, R.drawable.item5, R.drawable.item6,
             R.drawable.item7, R.drawable.item8, R.drawable.item9
     };
-
     //그리드뷰 이미지 가격
     Integer[] shopListPrice ={
-            1000, 3000, 5000,
-            500, 1000, 2000,
-            800, 1500, 3000
+            200,  300,  500,
+            800, 1000, 1500,
+            1500, 2000, 3000
+    };
+
+
+    //그리드뷰 대화상자 아이템능력
+    String[] shopListAbility = {
+            //기본 HP = 100, 기본 공격력 = 10, 기본 방어력 = 0, 능력 = x
+            "방어 10 증가", "공격 10 증가 ", "힌트 1회 제공",
+            "방어 20 증가", "공격 20 증가", "힌트 2회 제공",
+            "방어 30 증가", "공격 30 증가",  "힌트 3회 제공"
     };
 
     //그리드뷰 이미지 타이틀

@@ -106,9 +106,9 @@ public class MyPageActivity extends AppCompatActivity {
 
         //그리드뷰 이미지 타이틀
         String[] shopListTitle=  {
-                "item1", "item2", "item3",
-                "item4", "item5", "item6",
-                "item7", "item8", "item9"
+                "cap", "newspaper", "sneakers",
+                "coffee ", "book", "magnifier",
+                "hambuger", "phone", "sunglass"
         };
         //그리드뷰 이미지 저장위치
         final Integer[] shopListImage ={
@@ -143,7 +143,7 @@ public class MyPageActivity extends AppCompatActivity {
             loginName = signInAccount.getDisplayName();
             //회원정보 이메일
             loginEmail = signInAccount.getEmail();
-            Toast.makeText(MyPageActivity.this, loginName+" "+loginEmail, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(MyPageActivity.this, loginName+" "+loginEmail, Toast.LENGTH_SHORT).show();
         }
 
 

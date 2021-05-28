@@ -15,11 +15,16 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.opencsv.CSVReader;
 
 import java.io.BufferedWriter;
@@ -51,7 +56,8 @@ public class BattleActivity extends AppCompatActivity {
     int count_total_question = 0;
     int count_correct_question = 0;
     boolean isDidIt = false;
-    boolean isItemExist = true;
+    //스킬 능력을 갖고 있는지 확인.
+    boolean isItemExist = false;
     String forSkill;
 
      String stageNum;
@@ -61,6 +67,14 @@ public class BattleActivity extends AppCompatActivity {
     //구글로그인 회원정보
     static String loginName ="";
     static String loginEmail = "";
+    //파이어베이스 선언 변수
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    //파이어베이스로부터 얻은 정보(클래스 객체)
+    MyPage_Item item;
+    //공격력, 방어력, 능력
+    int atk;
+    int dfd;
+    String skill;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -89,8 +103,30 @@ public class BattleActivity extends AppCompatActivity {
             loginName = signInAccount.getDisplayName();
             //회원정보 이메일
             loginEmail = signInAccount.getEmail();
-            Toast.makeText(BattleActivity.this, loginName+" "+loginEmail, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(BattleActivity.this, loginName+" "+loginEmail, Toast.LENGTH_SHORT).show();
         }
+
+
+        //파이어베이스 데이터 정보가져오기
+        db.collection(loginEmail).document("item"). get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                DocumentSnapshot document = task.getResult();
+                //객체(MYPage_Item)에 뿌려주기
+                item = document.toObject(MyPage_Item.class);
+                //파이어베이스에서 데이터 가져와서, 각 변수에 데이터 저장.
+                //클래스 객체 필드와 파이어베이스 필드명 같아야함 (틀리면 값을 못가져온다)
+                atk = Integer.parseInt(item.getAtk());
+                dfd = Integer.parseInt(item.getDfd());
+                skill = item.getSkill();
+                if(skill.equals("힌트 1회 제공")){
+                    isItemExist = true;
+                    checkSkill();
+                }
+
+            }
+        });
+
 
         if(isItemExist) { // 아이템을 보유하고 있을 경우 스킬 기능 활성화 ( 단 1회 )
             skillBTN.setVisibility(View.VISIBLE);
@@ -232,6 +268,45 @@ public class BattleActivity extends AppCompatActivity {
         countDownTimer_onStart.start();
     }
 
+    private void checkSkill() {
+        if(isItemExist) { // 아이템을 보유하고 있을 경우 스킬 기능 활성화 ( 단 1회 )
+            skillBTN.setVisibility(View.VISIBLE);
+            skillBTN.setClickable(true);
+            skillBTN.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int randomNum = (int) (Math.random() * 10); // 0 ~ 10 사이의 난수값 발생
+
+                    if(randomNum>5) { // 6 이상일 경우 스킬 발동
+                        String splitHint[] = forSkill.split(""); // 단어를 한글자씩 나누어 배열화
+                        String hint = "";
+                        String left = "";
+                        for (int i = 0; i < splitHint.length; i++) { // 단어의 절반(나누기 2, 내림)을 hint에 저장
+                            if (i < Math.floor((splitHint.length) / 2))
+                                hint += splitHint[i];
+                            else
+                                left += splitHint[i];
+                        }
+                        hint += " /";
+
+                        String splitLeft[] = left.split("");
+                        splitLeft = shuffle(splitLeft);
+                        splitLeft = shuffle(splitLeft);
+                        splitLeft = shuffle(splitLeft); // 절반 이후의 부분은 랜덤으로 섞는다
+                        for (int i = 0; i < splitLeft.length; i++)
+                            hint += " " + splitLeft[i];
+                        hintTV.setText(hint);
+                        skillBTN.setVisibility(View.GONE);
+                    }
+                    else { // 5 이하일 경우 스킬이 발동되지 않음
+                        Toast.makeText(BattleActivity.this, "스킬이 발동되지 않았다..!", Toast.LENGTH_SHORT).show();
+                        skillBTN.setVisibility(View.GONE);
+                    }
+                }
+            });
+        }
+    }
+
 
     public void countDownTimer_onStart(){
 
@@ -282,19 +357,22 @@ public class BattleActivity extends AppCompatActivity {
                             if(countWordLength == word.length()){
                                 if(word.equals(answerTV.getText())) { // 사용자가 입력한 단어가 정답일 경우
                                     hintTV.setText("HIT!");
-                                    enemyPB.setProgress(enemyPB.getProgress() - 10);
+                                    //사용자 캐릭터의 공격력에 따라서 적의 데미지를 설정한다.
+                                    enemyPB.setProgress(enemyPB.getProgress() - atk);
                                     enemyTalk_TV.setText("I see!");
                                     enemyPB_TV.setText(String.valueOf(enemyPB.getProgress()));
                                     isDidIt = true;
                                     count_total_question++;
                                     count_correct_question++;
-                                    if(enemyPB.getProgress()==0)   // 적의 체력이 0이 되었을 경우 -> WIN
+                                    if(enemyPB.getProgress() <=0)   // 적의 체력이 0이 되었을 경우 -> WIN
                                         finish(true);
                                     count_word++;
                                 }
                                 else {                              // 사용자가 입력한 단어가 오답일 경우
                                     hintTV.setText("! "+word+" !");
-                                    userPB.setProgress(userPB.getProgress() - 10);
+                                    //적의 기본 공격력은 20이다.
+                                    //방어아이템을 장착하게 될경우, 적의 기본 공격력이 약해진다.
+                                    userPB.setProgress(userPB.getProgress() + (-20+dfd));
                                     enemyTalk_TV.setText("Parden?");
                                     userPB_TV.setText(String.valueOf(userPB.getProgress()));
                                     isDidIt = true;
@@ -306,7 +384,7 @@ public class BattleActivity extends AppCompatActivity {
                                     } catch (IOException e) {
                                         e.printStackTrace();
                                     }
-                                    if(userPB.getProgress()==0)   // 사용자의 체력이 0이 되었을 경우 -> LOSE
+                                    if(userPB.getProgress() <=0)   // 사용자의 체력이 0이 되었을 경우 -> LOSE
                                         finish(false);
                                     count_word++;
                                 }
@@ -330,10 +408,10 @@ public class BattleActivity extends AppCompatActivity {
                 timerTV.setText(String.valueOf(count_timer));
                 timerPB.setProgress(count_timer);
                 count_timer--;
-                if(count_timer == 0 & !isDidIt) {
+                if(count_timer <= 0 & !isDidIt) {
                     hintTV.setText("! "+word+" !");
                     enemyTalk_TV.setText("Parden?");
-                    userPB.setProgress(userPB.getProgress() - 10);
+                    userPB.setProgress(userPB.getProgress()+ (-20+dfd));
                     userPB_TV.setText(String.valueOf(userPB.getProgress()));
                     count_total_question++;
                     try {
@@ -394,7 +472,7 @@ public class BattleActivity extends AppCompatActivity {
                                 if(word.equals(answerTV.getText())) { // 사용자가 입력한 단어가 정답일 경우
                                     hintTV.setText("HIT!");
                                     enemyTalk_TV.setText("I see!");
-                                    enemyPB.setProgress(enemyPB.getProgress() - 10);
+                                    enemyPB.setProgress(enemyPB.getProgress() - atk);
                                     enemyPB_TV.setText(String.valueOf(enemyPB.getProgress()));
                                     isDidIt = true;
                                     count_total_question++;
@@ -405,7 +483,8 @@ public class BattleActivity extends AppCompatActivity {
                                 }
                                 else {                              // 사용자가 입력한 단어가 오답일 경우
                                     hintTV.setText("! "+word+" !");
-                                    userPB.setProgress(userPB.getProgress() - 10);
+                                    //적의 기본 공격력은 20
+                                    userPB.setProgress(userPB.getProgress() + (-20+dfd));
                                     enemyTalk_TV.setText("Parden?");
                                     userPB_TV.setText(String.valueOf(userPB.getProgress()));
                                     isDidIt = true;

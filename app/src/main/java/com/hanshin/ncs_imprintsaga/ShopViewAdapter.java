@@ -35,9 +35,9 @@ public class ShopViewAdapter extends BaseAdapter {
 
     //그리드뷰 이미지 타이틀
     String[] shopListTitle=  {
-            "item1", "item2", "item3",
-            "item4", "item5", "item6",
-            "item7", "item8", "item9"
+            "cap", "newspaper", "sneakers",
+            "coffee ", "book", "magnifier",
+            "hambuger", "phone", "sunglass"
     };
     public ShopViewAdapter(Context c) {
         context = c;

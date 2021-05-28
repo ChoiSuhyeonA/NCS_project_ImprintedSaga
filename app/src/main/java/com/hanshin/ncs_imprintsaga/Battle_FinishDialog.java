@@ -51,7 +51,7 @@ public class Battle_FinishDialog {
     String medal3;
     String medal4;
     String medal5;
-    Medal m = new Medal();
+    Medal m  =new Medal();;
 
 
     public Battle_FinishDialog(Context context) {
@@ -151,16 +151,18 @@ public class Battle_FinishDialog {
                         public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                             final DocumentSnapshot document = task.getResult();
                             Medal medalCheck = document.toObject(Medal.class);
+
                             medal1 = medalCheck.getMedal1();
                             medal2 = medalCheck.getMedal2();
                             medal3 = medalCheck.getMedal3();
                             medal4 = medalCheck.getMedal4();
                             medal5 = medalCheck.getMedal5();
 
+
                             m.setMedal1(medal1);
                             m.setMedal2(medal2);
                             m.setMedal3(medal3);
-                            m.setMedal3(medal4);
+                            m.setMedal4(medal4);
                             m.setMedal5(medal5);
 
                             TextView medalTv_onBattle = dialogView.findViewById(R.id.medalTv_onBattle);
@@ -214,8 +216,10 @@ public class Battle_FinishDialog {
                 Ba.finish();
                 Intent intent=new Intent();
                 intent.setClass(Ba, Ba.getClass());
-                intent.putExtra("stageNum", stageNum);
+                intent.putExtra("stageNum", "Stage"+stageNum);
                 Ba.startActivity(intent);
+                //대화상자 창닫기
+                dlg.dismiss();
             }
         });
     }

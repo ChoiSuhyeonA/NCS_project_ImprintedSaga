@@ -75,7 +75,7 @@ public class BattleActivity extends AppCompatActivity {
     //파이어베이스로부터 얻은 정보(클래스 객체)
     MyPage_Item item;
     //현재 장착한 아이템 정보
-    ArrayList<String> checkItem = new ArrayList<String>();
+      ArrayList<String> checkItem = new ArrayList<String>();
     //공격력, 방어력, 능력
     int atk;
     int dfd;
@@ -154,8 +154,6 @@ public class BattleActivity extends AppCompatActivity {
                 changeImage(mountItem);
             }
         });
-
-
 
 
         if(isItemExist) { // 아이템을 보유하고 있을 경우 스킬 기능 활성화 ( 단 1회 )
@@ -297,6 +295,8 @@ public class BattleActivity extends AppCompatActivity {
         countDownTimer_onStart();
         countDownTimer_onStart.start();
     }
+
+
     //현재 장착한 아이템에 따라서 이미지를 변화시킨다.
     private void changeImage(String mountItem) {
         switch (mountItem){

@@ -1,5 +1,6 @@
 package com.hanshin.ncs_imprintsaga;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
@@ -13,6 +14,12 @@ import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.ArrayList;
 
 public class StageActivity extends AppCompatActivity {
     Button main_MY, main_SHOP, main_SETTING, main_TRAINING;
@@ -22,6 +29,12 @@ public class StageActivity extends AppCompatActivity {
     //구글로그인 회원정보
     static String loginName ="";
     static String loginEmail = "";
+
+    //파이어베이스 선언 변수
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    //이전맵 스테이지 결과정보
+    static ArrayList<String> preStage = new ArrayList<String>();
+    int k;
 
 
     @Override
@@ -43,6 +56,21 @@ public class StageActivity extends AppCompatActivity {
             //회원정보 이메일
             loginEmail = signInAccount.getEmail();
             Toast.makeText(StageActivity.this, loginName+" "+loginEmail, Toast.LENGTH_SHORT).show();
+        }
+=
+        //맵을 실행하기 전에 이전맵을 클리어했는지 확인.
+        for(int i=0; i<9; i++){
+            k=i;
+            db.collection(loginEmail).document("stage"+String.valueOf(i+1)).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    DocumentSnapshot document = task.getResult();
+                    StageResult pre = document.toObject(StageResult.class);
+                    preStage.add(pre.getResult());
+                    mapSetting(k);
+                 
+                }
+            });
         }
 
         main_MY.setOnClickListener(new View.OnClickListener() {
@@ -88,5 +116,16 @@ public class StageActivity extends AppCompatActivity {
         }
 
 
+    }
+
+    private void mapSetting(int i) {
+        if(i==0){
+
+        }else{
+            if( preStage.get(i-1).equals("LOSE")){
+                stageBtn[i].setClickable(false);
+                stageBtn[i].setBackground(getDrawable(R.drawable.button_map_enable));
+            }
+        }
     }
 }

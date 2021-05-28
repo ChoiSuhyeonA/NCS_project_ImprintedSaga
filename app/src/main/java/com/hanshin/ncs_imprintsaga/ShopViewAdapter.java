@@ -1,6 +1,8 @@
 package com.hanshin.ncs_imprintsaga;
 
 import android.content.Context;
+import android.graphics.ColorMatrix;
+import android.graphics.ColorMatrixColorFilter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -73,6 +75,15 @@ public class ShopViewAdapter extends BaseAdapter {
         image.setPadding(20,20,20,20);
         textView.setText(shopListPrice[position].toString());
 
+        //4번아이템부터 9번아이템 흑백으로 표시
+        if(position ==0 || position==1 || position==2){
+        }else{
+            ColorMatrix matrix = new ColorMatrix();
+            matrix.setSaturation(0);
+
+            ColorMatrixColorFilter filter = new ColorMatrixColorFilter(matrix);
+            image.setColorFilter(filter);
+        }
         return  convertView;
     }
 }

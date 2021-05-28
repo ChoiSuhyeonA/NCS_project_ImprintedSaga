@@ -214,6 +214,7 @@ public class Battle_FinishDialog {
                 Ba.finish();
                 Intent intent=new Intent();
                 intent.setClass(Ba, Ba.getClass());
+                intent.putExtra("stageNum", stageNum);
                 Ba.startActivity(intent);
             }
         });

@@ -3,6 +3,9 @@ package com.hanshin.ncs_imprintsaga;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.ColorMatrix;
+import android.graphics.ColorMatrixColorFilter;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -188,6 +191,8 @@ public class MyPageActivity extends AppCompatActivity {
                 checkItem.add(check.getItem8());
                 checkItem.add(check.getItem9());
 
+                String mountItem = checkItem.get(0)+checkItem.get(1)+checkItem.get(2);
+                changeImage(mountItem);
             }
         });
 
@@ -205,6 +210,17 @@ public class MyPageActivity extends AppCompatActivity {
                 TextView text1 = dialogView.findViewById(R.id.mypage_dialogAbilty);
                 text1.setText(shopListAbility[position]);
                 TextView text2 = dialogView.findViewById(R.id.mypage_dialogText);
+
+                //4번아이템부터 9번아이템 흑백으로 표시
+                if(position ==0 || position==1 || position==2){
+                }else{
+                    ColorMatrix matrix = new ColorMatrix();
+                    matrix.setSaturation(0);
+
+                    ColorMatrixColorFilter filter = new ColorMatrixColorFilter(matrix);
+                    image.setColorFilter(filter);
+                }
+
                 if(haveItem.get(position).equals("0")){
                     text2.setText("아이템 보유 x");
                 }else{
@@ -234,7 +250,9 @@ public class MyPageActivity extends AppCompatActivity {
                                        //체크리스트 업데이트
                                        db.collection(loginEmail).document("itemcheck").update(data2);
                                        //이미지 업데이트
-                                       imageChange();
+                                       checkItem.set(position,"1");
+                                       changeImage(checkItem.get(0)+checkItem.get(1)+checkItem.get(2));
+
                                     }
                                    break;
                                case 1:
@@ -248,7 +266,9 @@ public class MyPageActivity extends AppCompatActivity {
                                        Map<String, Object> data2 = new HashMap<>();
                                        data2.put("item2", checkItem.get(position));
                                        db.collection(loginEmail).document("itemcheck").update(data2);
-
+                                       //이미지 업데이트
+                                       checkItem.set(position,"1");
+                                       changeImage(checkItem.get(0)+checkItem.get(1)+checkItem.get(2));
                                    }
                                    break;
                                case 2:
@@ -262,6 +282,9 @@ public class MyPageActivity extends AppCompatActivity {
                                        Map<String, Object> data2 = new HashMap<>();
                                        data2.put("item3", checkItem.get(position));
                                        db.collection(loginEmail).document("itemcheck").update(data2);
+                                       //이미지 업데이트
+                                       checkItem.set(position,"1");
+                                       changeImage(checkItem.get(0)+checkItem.get(1)+checkItem.get(2));
                                    }
                                    break;
                                case 3:
@@ -374,6 +397,10 @@ public class MyPageActivity extends AppCompatActivity {
                                     Map<String, Object> data11 = new HashMap<>();
                                     data11.put("item1", checkItem.get(position));
                                     db.collection(loginEmail).document("itemcheck").update(data11);
+
+                                    //이미지 업데이트
+                                    checkItem.set(position,"0");
+                                    changeImage(checkItem.get(0)+checkItem.get(1)+checkItem.get(2));
                                     break;
                                 case 1:
                                     if(checkItem.get(position).equals("1")){
@@ -387,6 +414,10 @@ public class MyPageActivity extends AppCompatActivity {
                                     Map<String, Object> data22 = new HashMap<>();
                                     data22.put("item2", checkItem.get(position));
                                     db.collection(loginEmail).document("itemcheck").update(data22);
+
+                                    //이미지 업데이트
+                                    checkItem.set(position,"0");
+                                    changeImage(checkItem.get(0)+checkItem.get(1)+checkItem.get(2));
                                     break;
 
                                 case 2:
@@ -401,6 +432,10 @@ public class MyPageActivity extends AppCompatActivity {
                                     Map<String, Object> data33 = new HashMap<>();
                                     data33.put("item3", checkItem.get(position));
                                     db.collection(loginEmail).document("itemcheck").update(data33);
+
+                                    //이미지 업데이트
+                                    checkItem.set(position,"0");
+                                    changeImage(checkItem.get(0)+checkItem.get(1)+checkItem.get(2));
                                     break;
 
                                 case 3:
@@ -596,6 +631,36 @@ public class MyPageActivity extends AppCompatActivity {
         });
     }
 
+    //현재 장착한 아이템에 따라서 이미지를 변화시킨다.
+    private void changeImage(String mountItem) {
+        switch (mountItem){
+            case "000":
+                mypage_charIv.setImageResource(R.drawable.item000);
+                break;
+            case "001":
+                mypage_charIv.setImageResource(R.drawable.item001);
+                break;
+            case "010":
+                mypage_charIv.setImageResource(R.drawable.item010);
+                break;
+            case "100":
+                mypage_charIv.setImageResource(R.drawable.item100);
+                break;
+            case "101":
+                mypage_charIv.setImageResource(R.drawable.item101);
+                break;
+            case "011":
+                mypage_charIv.setImageResource(R.drawable.item011);
+                break;
+            case "110":
+                mypage_charIv.setImageResource(R.drawable.item110);
+                break;
+            case "111":
+                mypage_charIv.setImageResource(R.drawable.item111);
+                break;
+        }
+    }
+
     private void calAnswerRate(int k) {
 
         sum +=answerRate.get(a);
@@ -612,25 +677,6 @@ public class MyPageActivity extends AppCompatActivity {
     }
 
 
-    //아이템을 장착했을 때, 이미지 변화
-    private void imageChange() {
-        db.collection(loginEmail).document("itemcheck").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                DocumentSnapshot document = task.getResult();
-                check = document.toObject(Mypage_checkitem.class);
-                String i1= check.getItem1();
-                String i2= check.getItem1();
-                String i3= check.getItem1();
-                String i4= check.getItem1();
-                String i5= check.getItem1();
-                String i6= check.getItem1();
-                String i7= check.getItem1();
-                String i8= check.getItem1();
-                String i9= check.getItem1();
-            }
-        });
-    }
 
 
 }

@@ -22,7 +22,7 @@ import java.io.IOException;
 public class TrainingActivity extends AppCompatActivity{
     public static Activity TrainingPageActivity;
 
-    int dataSize = 100;
+    int dataSize = 1000000;
     txtData[] dataArray = new txtData[dataSize];
     int wordsTotalLength=0;
     TextView questionTV, timerTV, answerTV, hintTV;

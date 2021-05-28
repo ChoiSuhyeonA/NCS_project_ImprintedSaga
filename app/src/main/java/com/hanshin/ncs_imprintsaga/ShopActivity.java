@@ -3,6 +3,8 @@ package com.hanshin.ncs_imprintsaga;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.ColorMatrix;
+import android.graphics.ColorMatrixColorFilter;
 import android.os.Bundle;
 import android.os.Message;
 import android.view.View;
@@ -32,7 +34,7 @@ import java.util.Map;
 public class ShopActivity extends Activity {
 
     ImageButton shop_closeBtn;
-    ImageView shop_charIv, shop_petIv;
+    ImageView shop_charIv;
     TextView shop_pointTv;
     GridView shop_GridView;
     ShopViewAdapter adapter;
@@ -40,6 +42,9 @@ public class ShopActivity extends Activity {
     //구글로그인 회원정보
     String loginName ="";
     String loginEmail = "";
+
+    //아이템 장착 여부
+    ArrayList<String> checkItem = new ArrayList<String>();
 
     //그리드뷰 이미지 타이틀
     //그리드뷰 이미지 타이틀
@@ -118,6 +123,30 @@ public class ShopActivity extends Activity {
             }
         });
 
+        //현재 장착한 아이템 리스트 정보 가져오기.
+        db.collection(loginEmail).document("itemcheck").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                DocumentSnapshot document = task.getResult();
+                Mypage_checkitem check = document.toObject(Mypage_checkitem.class);
+
+                //현재 갖고 있는 아이템의 체크 유무를 리스트에 등록시킨다.
+                checkItem.add(check.getItem1());
+                checkItem.add(check.getItem2());
+                checkItem.add(check.getItem3());
+                checkItem.add(check.getItem4());
+                checkItem.add(check.getItem5());
+                checkItem.add(check.getItem6());
+                checkItem.add(check.getItem7());
+                checkItem.add(check.getItem8());
+                checkItem.add(check.getItem9());
+
+                String mountItem = checkItem.get(0)+checkItem.get(1)+checkItem.get(2);
+                changeImage(mountItem);
+            }
+        });
+
+
 
         //shop페이지 그리드뷰 및 어댑터 설정
         adapter = new ShopViewAdapter(this);
@@ -147,6 +176,15 @@ public class ShopActivity extends Activity {
                 tv.setText(shopListPrice[position].toString());
                 dlg.setTitle(shopListTitle[position]);
                 ability.setText(shopListAbility[position]);
+
+                //4번아이템부터 9번아이템 흑백으로 표시
+                if(position ==0 || position==1 || position==2){
+                }else{
+                    ColorMatrix matrix = new ColorMatrix();
+                    matrix.setSaturation(0);
+                    ColorMatrixColorFilter filter = new ColorMatrixColorFilter(matrix);
+                    img.setColorFilter(filter);
+                }
 
                 dlg.setIcon(R.drawable.ic_baseline_shopping_basket_24);
                 dlg.setView(dialogView);
@@ -248,7 +286,35 @@ public class ShopActivity extends Activity {
         });
     }
 
-
+    //현재 장착한 아이템에 따라서 이미지를 변화시킨다.
+    private void changeImage(String mountItem) {
+        switch (mountItem){
+            case "000":
+                shop_charIv.setImageResource(R.drawable.item000);
+                break;
+            case "001":
+                shop_charIv.setImageResource(R.drawable.item001);
+                break;
+            case "010":
+                shop_charIv.setImageResource(R.drawable.item010);
+                break;
+            case "100":
+                shop_charIv.setImageResource(R.drawable.item100);
+                break;
+            case "101":
+                shop_charIv.setImageResource(R.drawable.item101);
+                break;
+            case "011":
+                shop_charIv.setImageResource(R.drawable.item011);
+                break;
+            case "110":
+                shop_charIv.setImageResource(R.drawable.item110);
+                break;
+            case "111":
+                shop_charIv.setImageResource(R.drawable.item111);
+                break;
+        }
+    }
 
 
 }

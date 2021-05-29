@@ -35,12 +35,16 @@ public class StageActivity extends AppCompatActivity {
     //이전맵 스테이지 결과정보
     static ArrayList<String> preStage = new ArrayList<String>();
     int k;
+    //쓰레드 변수
+    final BackgroundThreads thread = new BackgroundThreads();
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.stage);
+
+        preStage.clear();
 
         main_MY = findViewById(R.id.main_my_btn);
         main_SHOP = findViewById(R.id.main_shop_btn);
@@ -57,21 +61,21 @@ public class StageActivity extends AppCompatActivity {
             loginEmail = signInAccount.getEmail();
             Toast.makeText(StageActivity.this, loginName+" "+loginEmail, Toast.LENGTH_SHORT).show();
         }
-=
-        //맵을 실행하기 전에 이전맵을 클리어했는지 확인.
-        for(int i=0; i<9; i++){
-            k=i;
-            db.collection(loginEmail).document("stage"+String.valueOf(i+1)).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                    DocumentSnapshot document = task.getResult();
-                    StageResult pre = document.toObject(StageResult.class);
-                    preStage.add(pre.getResult());
-                    mapSetting(k);
-                 
-                }
-            });
-        }
+
+//        //맵을 실행하기 전에 이전맵을 클리어했는지 확인.
+//        for(int i=0; i<9; i++){
+//            db.collection(loginEmail).document("stage"+String.valueOf(i+1)).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+//                @Override
+//                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+//                    DocumentSnapshot document = task.getResult();
+//                    StageResult r = document.toObject(StageResult.class);
+//                        preStage.add(r.getResult());
+//                        //함수호출 (이전맵이 lose 이면 비활성화 상태로 변경)
+//                        mapSetting();
+//                }
+//            });
+//        }
+
 
         main_MY.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -118,14 +122,21 @@ public class StageActivity extends AppCompatActivity {
 
     }
 
-    private void mapSetting(int i) {
-        if(i==0){
-
-        }else{
-            if( preStage.get(i-1).equals("LOSE")){
-                stageBtn[i].setClickable(false);
-                stageBtn[i].setBackground(getDrawable(R.drawable.button_map_enable));
-            }
+//    private void mapSetting() {
+//        for(int j=1; j<preStage.size(); j++){
+//                if( preStage.get(j-1).equals("LOSE")){
+//                    stageBtn[j].setEnabled(false);
+//                    stageBtn[j].setBackground(getDrawable(R.drawable.button_map_enable));
+//                }
+//        }
+//    }
+}
+//대기 시간을 할 수 있도록 하는 클래스
+class BackgroundThreads extends  Thread{
+    public  void run(){
+        try{
+            Thread.sleep(100);
+        }catch (Exception e){
         }
     }
 }

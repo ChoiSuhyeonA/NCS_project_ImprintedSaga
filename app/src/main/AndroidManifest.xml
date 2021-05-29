@@ -31,6 +31,9 @@
         <activity
             android:name=".TrainingActivity"
             android:label="Training" />
+        <activity
+            android:name=".RankActivity"
+            android:label="Rank" />
         <activity android:name=".SettingActivity" android:label="google login"> </activity>
         <activity android:name=".StageActivity" android:label="Main"> </activity>
     </application>

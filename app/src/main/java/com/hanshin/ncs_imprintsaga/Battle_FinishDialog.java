@@ -122,13 +122,14 @@ public class Battle_FinishDialog {
 
         final Button endBtn = (Button) dlg.findViewById(R.id.endBtn_onBattle);
         final BattleActivity Ba = (BattleActivity)BattleActivity.BattlePageActivity;
+        final StageActivity  Sa = (StageActivity) StageActivity.StagePageActivity;
         endBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //게임을 승리할 시 리워드 지급
                 if(resultTv.getText().equals("WIN")){
                     final View  dialogView =(LinearLayout)  View.inflate(context,  R.layout.stage_end_rewards, null);
-                    AlertDialog.Builder dlg = new AlertDialog.Builder(context);
+                    AlertDialog.Builder dlg2 = new AlertDialog.Builder(context);
                     TextView medalTv_onBattle = dialogView.findViewById(R.id.medalTv_onBattle);
 
                     //현재 갖고있는 포인트, 경험치, 레벨 확인하기
@@ -191,15 +192,21 @@ public class Battle_FinishDialog {
                         }
                     });
 
-                    dlg.setView(dialogView);
-                    dlg.setNegativeButton("닫기", new DialogInterface.OnClickListener(){
+                    dlg2.setView(dialogView);
+                    dlg2.setNegativeButton("닫기", new DialogInterface.OnClickListener(){
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             //페이지 닫기
+                            dlg.dismiss();
+                            Intent intent=new Intent();
+                            intent.setClass(Sa, Sa.getClass());
+                            Sa.startActivity(intent);
                             Ba.finish();
+
                         }
                     });
-                    dlg.show();
+                    dlg2.show();
+
 
                 }
                 else{

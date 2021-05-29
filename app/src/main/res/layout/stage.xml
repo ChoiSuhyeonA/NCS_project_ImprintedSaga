@@ -49,6 +49,18 @@
             android:textColor="#0C6291"
             android:textStyle="bold"
             android:text="SETTING" />
+        <Button
+            android:id="@+id/main_rank_btn"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_gravity="right"
+            android:layout_marginTop="120dp"
+            android:layout_marginRight="20dp"
+            android:background="#FBFEF9"
+            android:textColor="#0C6291"
+            android:textStyle="bold"
+            android:text="RANK" />
+
 
         <ScrollView
             android:id="@+id/scrollview"

@@ -3,6 +3,7 @@ package com.hanshin.ncs_imprintsaga;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,27 +17,28 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 
 public class StageActivity extends AppCompatActivity {
-    Button main_MY, main_SHOP, main_SETTING, main_TRAINING;
+    Button main_MY, main_SHOP, main_SETTING, main_TRAINING, main_RANK;
     ScrollView scrollview;
-    Button stageBtn[] = new Button[9];
+   static Button stageBtn[] = new Button[9];
 
     //구글로그인 회원정보
     static String loginName ="";
     static String loginEmail = "";
 
     //파이어베이스 선언 변수
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
+     FirebaseFirestore db = FirebaseFirestore.getInstance();
     //이전맵 스테이지 결과정보
     static ArrayList<String> preStage = new ArrayList<String>();
     int k;
-    //쓰레드 변수
-    final BackgroundThreads thread = new BackgroundThreads();
+
+    public static Activity StagePageActivity;
 
 
     @Override
@@ -44,12 +46,15 @@ public class StageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.stage);
 
+        StagePageActivity = StageActivity.this;
+
         preStage.clear();
 
         main_MY = findViewById(R.id.main_my_btn);
         main_SHOP = findViewById(R.id.main_shop_btn);
         main_SETTING = findViewById(R.id.main_setting_btn);
         main_TRAINING = findViewById(R.id.main_training_btn);
+        main_RANK = findViewById(R.id.main_rank_btn);
         scrollview = findViewById(R.id.scrollview);
 
         //로그인한 회원정보를 가져오는 변수
@@ -62,19 +67,8 @@ public class StageActivity extends AppCompatActivity {
             Toast.makeText(StageActivity.this, loginName+" "+loginEmail, Toast.LENGTH_SHORT).show();
         }
 
-//        //맵을 실행하기 전에 이전맵을 클리어했는지 확인.
-//        for(int i=0; i<9; i++){
-//            db.collection(loginEmail).document("stage"+String.valueOf(i+1)).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-//                @Override
-//                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-//                    DocumentSnapshot document = task.getResult();
-//                    StageResult r = document.toObject(StageResult.class);
-//                        preStage.add(r.getResult());
-//                        //함수호출 (이전맵이 lose 이면 비활성화 상태로 변경)
-//                        mapSetting();
-//                }
-//            });
-//        }
+        preStageSearch();
+
 
 
         main_MY.setOnClickListener(new View.OnClickListener() {
@@ -105,6 +99,13 @@ public class StageActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        main_RANK.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), RankActivity.class);
+                startActivity(intent);
+            }
+        });
 
         for(int i =0;i<9;i++){
             int k = getResources().getIdentifier("main_stage1_"+(i+1), "id", getPackageName());
@@ -122,21 +123,40 @@ public class StageActivity extends AppCompatActivity {
 
     }
 
-//    private void mapSetting() {
-//        for(int j=1; j<preStage.size(); j++){
-//                if( preStage.get(j-1).equals("LOSE")){
-//                    stageBtn[j].setEnabled(false);
-//                    stageBtn[j].setBackground(getDrawable(R.drawable.button_map_enable));
-//                }
-//        }
-//    }
-}
-//대기 시간을 할 수 있도록 하는 클래스
-class BackgroundThreads extends  Thread{
-    public  void run(){
-        try{
-            Thread.sleep(100);
-        }catch (Exception e){
+     public void preStageSearch() {
+        final BackgroundThreads thread = new BackgroundThreads();
+        //맵을 실행하기 전에 이전맵을 클리어했는지 확인.
+        for(int i=0; i<9; i++){
+            db.collection(loginEmail).document("stage"+String.valueOf(i+1)).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    DocumentSnapshot document = task.getResult();
+                    StageResult r = document.toObject(StageResult.class);
+                    preStage.add(r.getResult());
+                    //함수호출 (이전맵이 lose 이면 비활성화 상태로 변경)
+                    mapSetting();
+                }
+            });
+            thread.run();
+        }
+    }
+
+     public void mapSetting() {
+        for(int j=1; j<preStage.size(); j++){
+                if( preStage.get(j-1).equals("LOSE")){
+                    stageBtn[j].setEnabled(false);
+                    stageBtn[j].setBackground(getDrawable(R.drawable.button_map_enable));
+                }
+        }
+    }
+
+    //대기 시간을 할 수 있도록 하는 클래스
+    static class BackgroundThreads extends  Thread{
+        public  void run(){
+            try{
+                Thread.sleep(100);
+            }catch (Exception e){
+            }
         }
     }
 }

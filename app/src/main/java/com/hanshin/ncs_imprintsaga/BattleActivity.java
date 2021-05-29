@@ -35,11 +35,13 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 
 public class BattleActivity extends AppCompatActivity {
 
     public static Activity BattlePageActivity;
+
 
     CsvData[] dataArray = new CsvData[30];
     ImageView userIV;
@@ -467,7 +469,7 @@ public class BattleActivity extends AppCompatActivity {
                 timerTV.setText(String.valueOf(count_timer));
                 timerPB.setProgress(count_timer);
                 count_timer--;
-                if(count_timer <= 0 & !isDidIt) {
+                if(count_timer == 0 & !isDidIt) {
                     hintTV.setText("! "+word+" !");
                     enemyTalk_TV.setText("Parden?");
                     userPB.setProgress(userPB.getProgress()+ (-20+dfd));
@@ -480,7 +482,7 @@ public class BattleActivity extends AppCompatActivity {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-                    if(userPB.getProgress()==0)   // 사용자의 체력이 0이 되었을 경우 -> LOSE
+                    if(userPB.getProgress() <=0)   // 사용자의 체력이 0이 되었을 경우 -> LOSE
                         finish(false);
                     count_word++;
                 }
@@ -555,7 +557,7 @@ public class BattleActivity extends AppCompatActivity {
                                     } catch (IOException e) {
                                         e.printStackTrace();
                                     }
-                                    if(userPB.getProgress()==0)   // 사용자의 체력이 0이 되었을 경우 -> LOSE
+                                    if(userPB.getProgress()<=0)   // 사용자의 체력이 0이 되었을 경우 -> LOSE
                                         finish(false);
                                     count_word++;
                                 }

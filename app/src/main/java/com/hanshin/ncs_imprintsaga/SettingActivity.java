@@ -42,7 +42,8 @@ public class SettingActivity extends Activity {
     //파이어베이스 선언 변수
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     //어플에 등록된 이메일 계정
-    ArrayList<String> enrollEmail = new ArrayList<String>();
+     ArrayList<String> enrollEmail = new ArrayList<String>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -131,6 +132,7 @@ public class SettingActivity extends Activity {
                        db.collection("member").document("account").update(mail).addOnCompleteListener(new OnCompleteListener<Void>() {
                            @Override
                            public void onComplete(@NonNull Task<Void> task) {
+                               //삭제 작업을 모두 완료했으면 로그인 페이지로 이동한다.
                                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                                startActivity(intent);
                            }

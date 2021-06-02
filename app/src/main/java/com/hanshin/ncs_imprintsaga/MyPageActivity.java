@@ -558,6 +558,16 @@ public class MyPageActivity extends AppCompatActivity {
          });
 
 
+        //창닫기 버튼 클릭시 메인페이지로 이동하기
+        mypage_closeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent =  new Intent(getApplicationContext(),StageActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
          //메달 정보 보여주기
         db.collection(loginEmail).document("medal").get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -620,17 +630,23 @@ public class MyPageActivity extends AppCompatActivity {
 
 
 
-        //창닫기 버튼 클릭시 메인페이지로 이동하기
-       mypage_closeBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent =  new Intent(getApplicationContext(),StageActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        });
+
     }
 
+    private void calAnswerRate(int k) {
+
+        sum +=answerRate.get(a);
+        int totalAnswerRate;
+        if(answerRate.size()==0){
+            totalAnswerRate = sum / (answerRate.size()+1);
+        }else{
+            totalAnswerRate = sum / answerRate.size();
+        }
+
+        mypage_answerratePb.setProgress(totalAnswerRate);
+        a++;
+
+    }
     //현재 장착한 아이템에 따라서 이미지를 변화시킨다.
     private void changeImage(String mountItem) {
         switch (mountItem){
@@ -661,20 +677,7 @@ public class MyPageActivity extends AppCompatActivity {
         }
     }
 
-    private void calAnswerRate(int k) {
 
-        sum +=answerRate.get(a);
-        int totalAnswerRate;
-        if(answerRate.size()==0){
-            totalAnswerRate = sum / (answerRate.size()+1);
-        }else{
-            totalAnswerRate = sum / answerRate.size();
-        }
-
-        mypage_answerratePb.setProgress(totalAnswerRate);
-        a++;
-
-    }
 
 
 

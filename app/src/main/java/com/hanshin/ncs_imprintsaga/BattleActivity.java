@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
@@ -42,6 +43,8 @@ public class BattleActivity extends AppCompatActivity {
 
     public static Activity BattlePageActivity;
 
+    //음악 bgm 플레이어
+    static MediaPlayer mPlayer;
 
     CsvData[] dataArray = new CsvData[30];
     ImageView userIV;
@@ -83,10 +86,13 @@ public class BattleActivity extends AppCompatActivity {
     int dfd;
     String skill;
 
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.battle);
+
         BattlePageActivity = BattleActivity.this;
 
         userIV = findViewById(R.id.userIV);
@@ -102,6 +108,7 @@ public class BattleActivity extends AppCompatActivity {
         timerPB = findViewById(R.id.timerPB);
         setBtnLayout = findViewById(R.id.wordBtns);
         skillBTN = findViewById(R.id.skillBTN);
+
 
 
         //로그인한 회원정보를 가져오는 변수

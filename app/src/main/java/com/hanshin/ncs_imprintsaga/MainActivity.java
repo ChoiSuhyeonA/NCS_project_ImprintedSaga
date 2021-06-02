@@ -4,10 +4,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -47,10 +47,18 @@ public class MainActivity extends AppCompatActivity {
 //        }
     }
 
+    //음악 bgm 플레이어
+    static MediaPlayer mPlayer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //노래 실행
+        mPlayer = MediaPlayer.create(this, R.raw.bgm);
+        mPlayer.setLooping(true);
+        mPlayer.start();
 
 
         mAuth = FirebaseAuth.getInstance();

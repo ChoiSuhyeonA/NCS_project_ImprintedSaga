@@ -99,8 +99,10 @@ public class SettingActivity extends Activity {
                 FirebaseAuth.getInstance().signOut();
                 Toast.makeText(getApplicationContext(), "로그아웃 성공", Toast.LENGTH_SHORT).show();
 
+                MainActivity.mPlayer.stop();
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
+
             }
         });
         //탈퇴하기
@@ -133,6 +135,8 @@ public class SettingActivity extends Activity {
                            @Override
                            public void onComplete(@NonNull Task<Void> task) {
                                //삭제 작업을 모두 완료했으면 로그인 페이지로 이동한다.
+
+                               MainActivity.mPlayer.stop();
                                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                                startActivity(intent);
                            }

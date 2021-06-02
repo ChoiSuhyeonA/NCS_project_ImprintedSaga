@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
+import android.media.MediaPlayer;
+import android.media.audiofx.DynamicsProcessing;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,10 +43,13 @@ public class StageActivity extends AppCompatActivity {
     public static Activity StagePageActivity;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.stage);
+
+
 
         StagePageActivity = StageActivity.this;
 
@@ -76,6 +81,7 @@ public class StageActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), MyPageActivity.class);
                 startActivity(intent);
+
             }
         });
         main_SHOP.setOnClickListener(new View.OnClickListener() {
@@ -83,6 +89,7 @@ public class StageActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), ShopActivity.class);
                 startActivity(intent);
+
             }
         });
         main_SETTING.setOnClickListener(new View.OnClickListener() {
@@ -90,6 +97,7 @@ public class StageActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), SettingActivity.class);
                 startActivity(intent);
+
             }
         });
         main_TRAINING.setOnClickListener(new View.OnClickListener() {
@@ -97,6 +105,7 @@ public class StageActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), TrainingActivity.class);
                 startActivity(intent);
+
             }
         });
         main_RANK.setOnClickListener(new View.OnClickListener() {
@@ -104,6 +113,7 @@ public class StageActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), RankActivity.class);
                 startActivity(intent);
+
             }
         });
 

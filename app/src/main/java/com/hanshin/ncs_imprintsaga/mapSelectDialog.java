@@ -86,6 +86,7 @@ public class mapSelectDialog {
                 if(num==1){
                     //첫번째 스테이지는 이전맵 결과를 확인하지 않고 실행시킨다.
                     //이전맵을 클리어했을경우
+
                     Intent intent = new Intent(context.getApplicationContext(), BattleActivity.class);
                     intent.putExtra("stageNum",stage);
                     context.startActivity(intent);

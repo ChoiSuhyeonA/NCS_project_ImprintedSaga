@@ -220,6 +220,7 @@ public class Battle_FinishDialog {
         retryBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Ba.finish();
                 Intent intent=new Intent();
                 intent.setClass(Ba, Ba.getClass());

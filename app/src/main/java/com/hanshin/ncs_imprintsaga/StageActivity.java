@@ -28,14 +28,14 @@ import java.util.ArrayList;
 public class StageActivity extends AppCompatActivity {
     Button main_MY, main_SHOP, main_SETTING, main_TRAINING, main_RANK;
     ScrollView scrollview;
-   static Button stageBtn[] = new Button[9];
+    static Button stageBtn[] = new Button[9];
 
     //구글로그인 회원정보
     static String loginName ="";
     static String loginEmail = "";
 
     //파이어베이스 선언 변수
-     FirebaseFirestore db = FirebaseFirestore.getInstance();
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
     //이전맵 스테이지 결과정보
     static ArrayList<String> preStage = new ArrayList<String>();
     int k;
@@ -133,7 +133,7 @@ public class StageActivity extends AppCompatActivity {
 
     }
 
-     public void preStageSearch() {
+    public void preStageSearch() {
         final BackgroundThreads thread = new BackgroundThreads();
         //맵을 실행하기 전에 이전맵을 클리어했는지 확인.
         for(int i=0; i<9; i++){
@@ -151,12 +151,12 @@ public class StageActivity extends AppCompatActivity {
         }
     }
 
-     public void mapSetting() {
+    public void mapSetting() {
         for(int j=1; j<preStage.size(); j++){
-                if( preStage.get(j-1).equals("LOSE")){
-                    stageBtn[j].setEnabled(false);
-                    stageBtn[j].setBackground(getDrawable(R.drawable.button_map_enable));
-                }
+            if( preStage.get(j-1).equals("LOSE")){
+                stageBtn[j].setEnabled(false);
+                stageBtn[j].setBackground(getDrawable(R.drawable.stagebtn_enable));
+            }
         }
     }
 

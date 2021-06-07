@@ -5,10 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingLeft="8dp"
-    android:paddingTop="8dp"
-    android:paddingRight="8dp"
-    android:paddingBottom="8dp"
     tools:context=".MainActivity">
 
     <FrameLayout
@@ -17,99 +13,104 @@
 
         <Button
             android:id="@+id/main_my_btn"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:layout_gravity="left"
             android:layout_marginTop="20dp"
             android:layout_marginLeft="20dp"
-            android:background="#FBFEF9"
+            android:background="@drawable/mybtn"
             android:textColor="#0C6291"
-            android:textStyle="bold"
-            android:text="MY" />
+            android:textStyle="bold"/>
 
         <Button
             android:id="@+id/main_shop_btn"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:layout_gravity="left"
             android:layout_marginTop="120dp"
             android:layout_marginLeft="20dp"
-            android:background="#FBFEF9"
+            android:background="@drawable/shopbtn"
             android:textColor="#0C6291"
-            android:textStyle="bold"
-            android:text="SHOP" />
+            android:textStyle="bold"/>
         <Button
             android:id="@+id/main_setting_btn"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:layout_gravity="right"
             android:layout_marginTop="20dp"
             android:layout_marginRight="20dp"
-            android:background="#FBFEF9"
+            android:background="@drawable/settingbtn"
             android:textColor="#0C6291"
-            android:textStyle="bold"
-            android:text="SETTING" />
+            android:textStyle="bold"/>
         <Button
             android:id="@+id/main_rank_btn"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:layout_gravity="right"
             android:layout_marginTop="120dp"
             android:layout_marginRight="20dp"
-            android:background="#FBFEF9"
+            android:background="@drawable/rankbtn"
             android:textColor="#0C6291"
-            android:textStyle="bold"
-            android:text="RANK" />
+            android:textStyle="bold"/>
 
 
         <ScrollView
             android:id="@+id/scrollview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="600dp"
+            android:layout_height="match_parent"
             android:scrollbars="none"
             tools:ignore="InvalidId">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#0C6291"
-                android:orientation="vertical">
+                android:background="@drawable/stagebackground"
+                android:orientation="vertical"
+                android:scaleType="fitEnd">
 
                 <Button
                     android:id="@+id/main_stage1_1"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
-                    android:layout_marginLeft="100dp"
+                    android:layout_marginLeft="140dp"
                     android:layout_marginTop="100dp"
-                    android:background="@drawable/button_map"
-                    android:text="1" />
+                    android:background="@drawable/m_stagebtn"
+                    android:text="1"
+                    android:textColor="#FFFFFF"
+                    android:textSize="30dp" />
 
                 <Button
                     android:id="@+id/main_stage1_2"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
-                    android:layout_marginLeft="230dp"
-                    android:layout_marginTop="40dp"
-                    android:background="@drawable/button_map"
-                    android:text="2" />
+                    android:layout_marginLeft="240dp"
+                    android:layout_marginTop="50dp"
+                    android:background="@drawable/m_stagebtn"
+                    android:text="2"
+                    android:textColor="#FFFFFF"
+                    android:textSize="30dp" />
 
                 <Button
                     android:id="@+id/main_stage1_3"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
-                    android:layout_marginLeft="100dp"
+                    android:layout_marginLeft="80dp"
                     android:layout_marginTop="40dp"
-                    android:background="@drawable/button_map"
-                    android:text="3" />
+                    android:background="@drawable/m_stagebtn"
+                    android:text="3"
+                    android:textColor="#FFFFFF"
+                    android:textSize="30dp" />
 
                 <Button
                     android:id="@+id/main_stage1_4"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
-                    android:layout_marginLeft="230dp"
+                    android:layout_marginLeft="260dp"
                     android:layout_marginTop="40dp"
-                    android:background="@drawable/button_map"
-                    android:text="4" />
+                    android:background="@drawable/m_stagebtn"
+                    android:text="4"
+                    android:textColor="#FFFFFF"
+                    android:textSize="30dp" />
 
                 <Button
                     android:id="@+id/main_stage1_5"
@@ -117,8 +118,10 @@
                     android:layout_height="70dp"
                     android:layout_marginLeft="100dp"
                     android:layout_marginTop="40dp"
-                    android:background="@drawable/button_map"
-                    android:text="5" />
+                    android:background="@drawable/m_stagebtn"
+                    android:text="5"
+                    android:textColor="#FFFFFF"
+                    android:textSize="30dp" />
 
                 <Button
                     android:id="@+id/main_stage1_6"
@@ -126,26 +129,32 @@
                     android:layout_height="70dp"
                     android:layout_marginLeft="230dp"
                     android:layout_marginTop="40dp"
-                    android:background="@drawable/button_map"
-                    android:text="6" />
+                    android:background="@drawable/m_stagebtn"
+                    android:text="6"
+                    android:textColor="#FFFFFF"
+                    android:textSize="30dp" />
 
                 <Button
                     android:id="@+id/main_stage1_7"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
-                    android:layout_marginLeft="100dp"
+                    android:layout_marginLeft="70dp"
                     android:layout_marginTop="40dp"
-                    android:background="@drawable/button_map"
-                    android:text="7" />
+                    android:background="@drawable/m_stagebtn"
+                    android:text="7"
+                    android:textColor="#FFFFFF"
+                    android:textSize="30dp" />
 
                 <Button
                     android:id="@+id/main_stage1_8"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
-                    android:layout_marginLeft="230dp"
+                    android:layout_marginLeft="270dp"
                     android:layout_marginTop="40dp"
-                    android:background="@drawable/button_map"
-                    android:text="8" />
+                    android:background="@drawable/m_stagebtn"
+                    android:text="8"
+                    android:textColor="#FFFFFF"
+                    android:textSize="30dp" />
 
                 <Button
                     android:id="@+id/main_stage1_9"
@@ -153,8 +162,10 @@
                     android:layout_height="70dp"
                     android:layout_marginLeft="100dp"
                     android:layout_marginTop="40dp"
-                    android:background="@drawable/button_map"
-                    android:text="9" />
+                    android:background="@drawable/m_stagebtn"
+                    android:text="9"
+                    android:textColor="#FFFFFF"
+                    android:textSize="30dp" />
 
             </LinearLayout>
 
@@ -162,15 +173,14 @@
 
         <Button
             android:id="@+id/main_training_btn"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:layout_gravity="bottom|right"
             android:layout_marginRight="20dp"
             android:layout_marginBottom="20dp"
-            android:background="#FBFEF9"
+            android:background="@drawable/trainingbtn"
             android:textColor="#0C6291"
-            android:textStyle="bold"
-            android:text="TRAINING" />
+            android:textStyle="bold"/>
 
     </FrameLayout>
 
